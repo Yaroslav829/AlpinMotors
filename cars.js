@@ -1,4 +1,4 @@
-/// Масив із даними про автомобілі Alpin Motors
+// Масив із даними про автомобілі Alpin Motors
 const cars = [
     {
         "id": 1,
@@ -29,23 +29,36 @@ const cars = [
     }
 ];
 
-// Функція для відображення карток авто на сторінці
+// Функція для відображення карток авто через Tailwind CSS стилі
 function renderCars() {
     const container = document.getElementById('cars-container');
     if (!container) return;
 
     container.innerHTML = cars.map(car => `
-        <div class="car-card">
-            <img src="${car.image}" alt="${car.title}" class="car-image">
-            <div class="car-info">
-                <h3>${car.title}</h3>
-                <p class="car-price">${car.price}</p>
-                <ul class="car-specs">
-                    <li><strong>Рік:</strong> ${car.year}</li>
-                    <li><strong>Двигун:</strong> ${car.engine}</li>
-                    <li><strong>Коробка:</strong> ${car.trans}</li>
+        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl overflow-hidden shadow-xl flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:border-blue-500/50">
+            <div class="w-full h-56 overflow-hidden bg-slate-950">
+                <img src="${car.image}" alt="${car.title}" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6 flex flex-col flex-grow">
+                <h3 class="text-xl font-bold text-white mb-2">${car.title}</h3>
+                <div class="text-2xl font-black text-blue-400 mb-4">${car.price}</div>
+                <ul class="space-y-2 border-t border-slate-800 pt-4 mb-6 text-sm text-slate-300 flex-grow">
+                    <li class="flex justify-between">
+                        <span class="text-slate-400">Рік:</span>
+                        <strong class="text-white">${car.year}</strong>
+                    </li>
+                    <li class="flex justify-between">
+                        <span class="text-slate-400">Двигун:</span>
+                        <strong class="text-white">${car.engine}</strong>
+                    </li>
+                    <li class="flex justify-between">
+                        <span class="text-slate-400">Коробка:</span>
+                        <strong class="text-white">${car.trans}</strong>
+                    </li>
                 </ul>
-                <button class="btn-details">Детальніше</button>
+                <button onclick="alert('Деталі по автомобілю ${car.title}')" class="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl transition duration-200">
+                    Детальніше
+                </button>
             </div>
         </div>
     `).join('');
