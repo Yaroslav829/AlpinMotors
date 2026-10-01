@@ -409,7 +409,7 @@
     </section>
 
     <!-- 7. ФОРМА ЗАЯВКИ -->
-    <section id="lead-form" class="py-20 relative overflow-hidden border-t border-slate-800/60">
+    <section id="lead-form-section" class="py-20 relative overflow-hidden border-t border-slate-800/60">
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-blue-600/15 blur-[120px] rounded-full pointer-events-none"></div>
 
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -433,7 +433,8 @@
                     </p>
                 </div>
 
-                <form class="max-w-2xl mx-auto space-y-4" onsubmit="event.preventDefault();">
+                <!-- Додано id="lead-form" та прибрано зайвий onsubmit -->
+                <form id="lead-form" class="max-w-2xl mx-auto space-y-4">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Ваше ім'я</label>
@@ -441,7 +442,8 @@
                                 <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-500 text-sm">
                                     <i class="fa-solid fa-user"></i>
                                 </span>
-                                <input type="text" placeholder="Олександр" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+                                <!-- Додано name="name" -->
+                                <input type="text" name="name" id="name" placeholder="Олександр" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition" required>
                             </div>
                         </div>
 
@@ -451,7 +453,8 @@
                                 <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-500 text-sm">
                                     <i class="fa-solid fa-phone"></i>
                                 </span>
-                                <input type="tel" placeholder="+380 (XX) XXX-XX-XX" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+                                <!-- Додано name="phone" -->
+                                <input type="tel" name="phone" id="phone" placeholder="+380 (XX) XXX-XX-XX" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition" required>
                             </div>
                         </div>
                     </div>
@@ -462,7 +465,7 @@
                             <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-500 text-sm">
                                 <i class="fa-solid fa-wallet"></i>
                             </span>
-                            <input type="text" placeholder="Наприклад: $15,000 або до $20,000" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+                            <input type="text" name="budget" placeholder="Наприклад: $15,000 або до $20,000" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
                         </div>
                     </div>
 
@@ -472,7 +475,8 @@
                             <span class="absolute top-3.5 left-0 pl-4 text-slate-500 text-sm">
                                 <i class="fa-solid fa-sliders"></i>
                             </span>
-                            <textarea rows="3" placeholder="Марка, модель, рік, колір, шкіряний салон, панорама, повний привід тощо..." class="w-full bg-slate-950/80 border border-slate-800 rounded-xl pl-11 pr-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition resize-none"></textarea>
+                            <!-- Додано name="car" -->
+                            <textarea name="car" rows="3" placeholder="Марка, модель, рік, колір, шкіряний салон, панорама, повний привід тощо..." class="w-full bg-slate-950/80 border border-slate-800 rounded-xl pl-11 pr-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition resize-none"></textarea>
                         </div>
                     </div>
 
