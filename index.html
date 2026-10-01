@@ -502,70 +502,69 @@
 
     <!-- Підключення файлу зі списком машин -->
     <script src="./cars.js"></script>
-document.addEventListener('DOMContentLoaded', () => {
-    // Шукаємо форму на сайті (переконайтеся, що ваша форма має id="lead-form")
-    const form = document.getElementById('lead-form'); 
-    
-    if (!form) return;
 
-    form.addEventListener('submit', async function(e) {
-        e.preventDefault(); // Зупиняємо стандартне перезавантаження сторінки
+    <!-- Скрипт відправки форми в Telegram -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('lead-form'); 
+        
+        if (!form) return;
 
-        // Ваші реальні дані Telegram
-        const BOT_TOKEN = '8977365283:AAGKMAmKy4uAEiL_Wfg74Rqo43MYSw1rBHQ';
-        const CHAT_ID = '5932490764';
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
 
-        // Збираємо дані з полів форми
-        const nameInput = form.querySelector('input[name="name"]') || form.querySelector('#name');
-        const phoneInput = form.querySelector('input[name="phone"]') || form.querySelector('#phone');
-        const carSelect = form.querySelector('select[name="car"]') || form.querySelector('#car');
+            const BOT_TOKEN = '8977365283:AAGKMAmKy4uAEiL_Wfg74Rqo43MYSw1rBHQ';
+            const CHAT_ID = '5932490764';
 
-        const name = nameInput ? nameInput.value : 'Не вказано';
-        const phone = phoneInput ? phoneInput.value : 'Не вказано';
-        const car = carSelect ? carSelect.value : 'Загальна заявка / Підбір авто';
+            const nameInput = form.querySelector('input[name="name"]') || form.querySelector('#name');
+            const phoneInput = form.querySelector('input[name="phone"]') || form.querySelector('#phone');
+            const budgetInput = form.querySelector('input[name="budget"]');
+            const carInput = form.querySelector('textarea[name="car"]');
 
-        // Формуємо гарне повідомлення для Telegram
-        const message = `🚨 <b>Нова заявка з сайту Alpin Motors!</b>\n\n` +
-                        `👤 <b>Ім'я:</b> ${name}\n` +
-                        `📞 <b>Телефон:</b> ${phone}\n` +
-                        `🚗 <b>Цікавить авто:</b> ${car}`;
+            const name = nameInput ? nameInput.value : 'Не вказано';
+            const phone = phoneInput ? phoneInput.value : 'Не вказано';
+            const budget = budgetInput && budgetInput.value ? budgetInput.value : 'Не вказано';
+            const car = carInput && carInput.value ? carInput.value : 'Загальна заявка / Підбір авто';
 
-        // URL для відправки через Telegram Bot API
-        const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            const message = `🚨 <b>Нова заявка з сайту Alpin Motors!</b>\n\n` +
+                            `👤 <b>Ім'я:</b> ${name}\n` +
+                            `📞 <b>Телефон:</b> ${phone}\n` +
+                            `💰 <b>Бюджет:</b> ${budget}\n` +
+                            `🚗 <b>Коментар/Авто:</b> ${car}`;
 
-        try {
-            // Вимикаємо кнопку на момент надсилання, щоб уникнути подвійного кліку
-            const submitBtn = form.querySelector('button[type="submit"]');
-            if (submitBtn) submitBtn.disabled = true;
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
 
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    chat_id: CHAT_ID,
-                    text: message,
-                    parse_mode: 'HTML' // Дозволяє форматування (жирний текст)
-                })
-            });
+            try {
+                const submitBtn = form.querySelector('button[type="submit"]');
+                if (submitBtn) submitBtn.disabled = true;
 
-            if (response.ok) {
-                alert('Дякуємо! Вашу заявку успішно надіслано. Ми зв\'яжемося з вами найближчим часом.');
-                form.reset(); // Очищуємо поля форми
-            } else {
-                alert('Сталася помилка при відправці. Спробуйте ще раз пізніше.');
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+
+                if (response.ok) {
+                    alert('Дякуємо! Вашу заявку успішно надіслано. Ми зв\'яжемося з вами найближчим часом.');
+                    form.reset();
+                } else {
+                    alert('Сталася помилка при відправці. Спробуйте ще раз пізніше.');
+                }
+
+                if (submitBtn) submitBtn.disabled = false;
+
+            } catch (error) {
+                console.error('Помилка:', error);
+                alert('Помилка мережі. Перевірте підключення до інтернету.');
+                const submitBtn = form.querySelector('button[type="submit"]');
+                if (submitBtn) submitBtn.disabled = false;
             }
-
-            if (submitBtn) submitBtn.disabled = false;
-
-        } catch (error) {
-            console.error('Помилка:', error);
-            alert('Помилка мережі. Перевірте підключення до інтернету.');
-            const submitBtn = form.querySelector('button[type="submit"]');
-            if (submitBtn) submitBtn.disabled = false;
-        }
+        });
     });
-});
+    </script>
 </body>
 </html>
