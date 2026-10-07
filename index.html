@@ -300,15 +300,18 @@
         </div>
     </section>
 
-    <!-- 5. КАТАЛОГ / АВТО В НАЯВНОСТІ (ДИНАМІЧНО З cars.js) -->
-    <section id="catalog" class="py-20 bg-[#080d1a]/80 border-t border-slate-800/60 backdrop-blur-sm">
+    <!-- 5. КАТАЛОГ / АВТО ПІД ЗАМОВЛЕННЯ (ПОДІЛЕНЕ НА США ТА ЄВРОПУ) -->
+    <section id="catalog" class="py-20 bg-[#080d1a]/80 border-t border-slate-800/60 backdrop-blur-sm alpin-logo-bg">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <span class="text-blue-400 text-xs font-bold uppercase tracking-widest block mb-2">// РОЗРАХОВАНІ ВАРІАНТИ</span>
-                <h2 class="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">АВТО ПІД ЗАМОВЛЕННЯ</h2>
+                <span class="text-blue-400 text-xs font-bold uppercase tracking-widest block mb-2">// НАПРЯМКИ ІМПОРТУ</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight mb-4">АВТО ПІД ЗАМОВЛЕННЯ</h2>
+                <p class="text-xs sm:text-sm text-slate-400 max-w-2xl mx-auto">
+                    Оберіть зручний напрямок — підберемо найкращі пропозиції зі США 🇺🇸 або Європи 🇪🇺 за вашим бюджетом
+                </p>
             </div>
 
-            <!-- СЮДИ ДИНАМІЧНО ВСТАВЛЯЮТЬСЯ АВТО З cars.js -->
+            <!-- СЮДИ ДИНАМІЧНО ВСТАВЛЯЮТЬСЯ АВТО З cars.js (з розділенням по регіонах) -->
             <div id="cars-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
         </div>
     </section>
