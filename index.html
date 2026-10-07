@@ -12,6 +12,7 @@
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: #060911;
+            overflow-x: hidden;
         }
 
         .alpin-bg {
@@ -28,56 +29,87 @@
             box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
         }
 
-        @keyframes shipMove {
-            0% { transform: translateX(-10px); }
-            50% { transform: translateX(10px); }
-            100% { transform: translateX(-10px); }
+        /* Прозорий фоновий логотип (водяний знак) */
+        .alpin-logo-bg {
+            position: relative;
         }
-        .ship-animation {
-            animation: shipMove 3s ease-in-out infinite;
+        .alpin-logo-bg::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url('./logo.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 450px;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 0;
         }
-        .glow-card:hover {
-            border-color: rgba(59, 130, 246, 0.6);
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
+        .alpin-logo-bg > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Анімації */
+        @keyframes floatBlob {
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            50% { transform: translate(20px, -20px) scale(1.05); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-blob {
+            animation: floatBlob 7s ease-in-out infinite;
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hover-lift {
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.3);
         }
     </style>
 </head>
 <body class="text-slate-100 alpin-bg antialiased selection:bg-blue-500 selection:text-white">
 
     <!-- 1. ШАПКА САЙТУ (HEADER) -->
-<header class="fixed top-0 left-0 right-0 z-50 bg-[#060911]/80 backdrop-blur-md border-b border-slate-800/80 transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-20">
-            
-            <a href="#" class="flex items-center gap-4 group">
-                <!-- Збільшена рамка логотипу (w-16 h-16) -->
-                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-700/80 group-hover:border-blue-500 flex items-center justify-center transition duration-300 shadow-xl overflow-hidden p-0">
-                    <!-- Максимальне збільшення самого логотипу всередині рамки -->
-                    <img src="./logo.svg" alt="ALPIN Logo" class="w-full h-full object-contain scale-[3.5] group-hover:scale-[3.8] transition duration-300">
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-xl font-black text-white tracking-wider leading-none uppercase">ALPIN</span>
-                    <span class="text-xs font-bold text-blue-400 tracking-[0.25em] leading-tight uppercase mt-1">MOTORS</span>
-                </div>
-            </a>
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#060911]/80 backdrop-blur-md border-b border-slate-800/80 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <a href="#" class="flex items-center gap-4 group">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-700/80 group-hover:border-blue-500 flex items-center justify-center transition duration-300 shadow-xl overflow-hidden p-0">
+                        <img src="./logo.svg" alt="ALPIN Logo" class="w-full h-full object-contain scale-[3.5] group-hover:scale-[3.8] transition duration-300">
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-black text-white tracking-wider leading-none uppercase">ALPIN</span>
+                        <span class="text-xs font-bold text-blue-400 tracking-[0.25em] leading-tight uppercase mt-1">MOTORS</span>
+                    </div>
+                </a>
 
                 <nav class="hidden md:flex items-center space-x-8">
-                    <a href="#about" class="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 transition duration-200">
-                        ХТО МИ
-                    </a>
-                    <a href="#services" class="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 transition duration-200">
-                        ПОСЛУГИ
-                    </a>
-                    <a href="#catalog" class="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 transition duration-200">
-                        АВТО В НАЯВНОСТІ
-                    </a>
-                    <a href="#route" class="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 transition duration-200">
-                        МАРШРУТ
-                    </a>
+                    <a href="#about" class="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 transition duration-200">ХТО МИ</a>
+                    <a href="#services" class="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 transition duration-200">ПОСЛУГИ</a>
+                    <a href="#catalog" class="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 transition duration-200">АВТО ПІД ЗАМОВЛЕННЯ</a>
+                    <a href="#route" class="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 transition duration-200">МАРШРУТ</a>
                 </nav>
 
                 <div class="flex items-center gap-4">
-                    <a href="#lead-form" class="hidden sm:inline-flex items-center gap-2.5 bg-blue-600 hover:bg-blue-500 text-white font-extrabold px-6 py-2.5 rounded-full text-xs uppercase tracking-wider transition duration-300 shadow-lg shadow-blue-600/30 hover:scale-105 active:scale-95">
+                    <a href="#lead-form-section" class="hidden sm:inline-flex items-center gap-2.5 bg-blue-600 hover:bg-blue-500 text-white font-extrabold px-6 py-2.5 rounded-full text-xs uppercase tracking-wider transition duration-300 shadow-lg shadow-blue-600/30 hover:scale-105 active:scale-95">
                         <i class="fa-solid fa-paper-plane text-xs"></i>
                         <span>Залишити заявку</span>
                     </a>
@@ -91,35 +123,22 @@
         </div>
 
         <div id="mobile-menu" class="hidden md:hidden bg-[#060911] border-b border-slate-800 px-4 pt-3 pb-6 space-y-3">
-            <a href="#about" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 border-b border-slate-800/50">
-                ХТО МИ
-            </a>
-            <a href="#services" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 border-b border-slate-800/50">
-                ПОСЛУГИ
-            </a>
-            <a href="#catalog" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 border-b border-slate-800/50">
-                АВТО В НАЯВНОСТІ
-            </a>
-            <a href="#route" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 border-b border-slate-800/50">
-                МАРШРУТ
-            </a>
-            <div class="pt-2">
-                <a href="#lead-form" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="flex items-center justify-center gap-2 w-full bg-blue-600 hover:bg-blue-500 text-white font-extrabold py-3 rounded-full text-xs uppercase tracking-wider shadow-lg shadow-blue-600/30">
-                    <i class="fa-solid fa-paper-plane text-xs"></i>
-                    <span>Залишити заявку</span>
-                </a>
-            </div>
+            <a href="#about" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 border-b border-slate-800/50">ХТО МИ</a>
+            <a href="#services" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 border-b border-slate-800/50">ПОСЛУГИ</a>
+            <a href="#catalog" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 border-b border-slate-800/50">АВТО ПІД ЗАМОВЛЕННЯ</a>
+            <a href="#route" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 border-b border-slate-800/50">МАРШРУТ</a>
         </div>
     </header>
 
-    <!-- 2. ГОЛОВНИЙ ЕКРАН (HERO) -->
-<section class="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden alpin-logo-bg">
-        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-blue-600/20 blur-[140px] rounded-full pointer-events-none"></div>
+    <!-- 2. ГОЛОВНИЙ ЕКРАН (HERO) З АНІМАЦІЯМИ -->
+    <section class="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden alpin-logo-bg">
+        <!-- Анімований фоновий світловий ефект -->
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-blue-600/20 blur-[140px] rounded-full pointer-events-none animate-blob"></div>
 
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <div class="inline-flex items-center gap-2 px-5 py-2 mb-6 pill-white text-xs sm:text-sm font-black tracking-wider uppercase shadow-xl">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center animate-fade-in">
+            <div class="inline-flex items-center gap-2 px-5 py-2 mb-6 pill-white text-xs sm:text-sm font-black tracking-wider uppercase shadow-xl hover-lift cursor-default">
                 <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-                <span>ЗНАХОДИМО ТЕ, ЩО ШУКАЄТЕ</span>
+                <span>ОФІЦІЙНИЙ ІМПОРТ АВТОМОБІЛІВ</span>
             </div>
 
             <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white mb-6 leading-[1.15]">
@@ -134,42 +153,42 @@
             </h1>
 
             <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-6 text-xs sm:text-sm text-slate-300 font-semibold mb-10 max-w-3xl mx-auto">
-                <div class="flex items-center gap-2 bg-slate-900/60 border border-slate-800/80 px-3.5 py-2 rounded-full backdrop-blur-md">
+                <div class="flex items-center gap-2 bg-slate-900/60 border border-slate-800/80 px-3.5 py-2 rounded-full backdrop-blur-md hover-lift">
+                    <i class="fa-solid fa-file-contract text-blue-400"></i>
+                    <span>Офіційний договір</span>
+                </div>
+                <div class="flex items-center gap-2 bg-slate-900/60 border border-slate-800/80 px-3.5 py-2 rounded-full backdrop-blur-md hover-lift">
                     <i class="fa-solid fa-shield-halved text-blue-400"></i>
-                    <span>Фінансова гарантія</span>
+                    <span>Якісний підбір без сюрпризів</span>
                 </div>
-                <div class="flex items-center gap-2 bg-slate-900/60 border border-slate-800/80 px-3.5 py-2 rounded-full backdrop-blur-md">
-                    <i class="fa-solid fa-eye text-blue-400"></i>
-                    <span>Прозорий кошторис</span>
-                </div>
-                <div class="flex items-center gap-2 bg-slate-900/60 border border-slate-800/80 px-3.5 py-2 rounded-full backdrop-blur-md">
+                <div class="flex items-center gap-2 bg-slate-900/60 border border-slate-800/80 px-3.5 py-2 rounded-full backdrop-blur-md hover-lift">
                     <i class="fa-solid fa-truck-fast text-blue-400"></i>
-                    <span>Контроль доставки 24/7</span>
+                    <span>Доставка від 6 до 55 днів</span>
                 </div>
             </div>
 
             <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-16">
-                <a href="#lead-form" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-black px-8 py-4 rounded-2xl text-xs uppercase tracking-wider transition shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 group">
+                <a href="#lead-form-section" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-black px-8 py-4 rounded-2xl text-xs uppercase tracking-wider transition shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 group hover-lift">
                     <span>Залишити заявку</span>
                     <i class="fa-solid fa-arrow-right transition group-hover:translate-x-1"></i>
                 </a>
-                <a href="#about" class="w-full sm:w-auto bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 text-slate-200 font-extrabold px-8 py-4 rounded-2xl text-xs uppercase tracking-wider transition backdrop-blur-md">
+                <a href="#about" class="w-full sm:w-auto bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 text-slate-200 font-extrabold px-8 py-4 rounded-2xl text-xs uppercase tracking-wider transition backdrop-blur-md hover-lift">
                     Дізнатися більше
                 </a>
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4 pt-8 border-t border-slate-800/60 max-w-2xl mx-auto">
-                <div class="text-center">
+                <div class="text-center hover-lift p-2 rounded-xl">
                     <div class="text-xl sm:text-2xl font-black text-white">500+</div>
                     <div class="text-[10px] sm:text-xs text-slate-400 font-bold uppercase tracking-wider">Привезених авто</div>
                 </div>
-                <div class="text-center">
+                <div class="text-center hover-lift p-2 rounded-xl">
                     <div class="text-xl sm:text-2xl font-black text-blue-400">до 30%</div>
                     <div class="text-[10px] sm:text-xs text-slate-400 font-bold uppercase tracking-wider">Економії бюджету</div>
                 </div>
-                <div class="col-span-2 md:col-span-1 text-center">
-                    <div class="text-xl sm:text-2xl font-black text-white">100%</div>
-                    <div class="text-[10px] sm:text-xs text-slate-400 font-bold uppercase tracking-wider">Страхування вантажу</div>
+                <div class="col-span-2 md:col-span-1 text-center hover-lift p-2 rounded-xl">
+                    <div class="text-xl sm:text-2xl font-black text-white">6-55 днів</div>
+                    <div class="text-[10px] sm:text-xs text-slate-400 font-bold uppercase tracking-wider">Терміни доставки</div>
                 </div>
             </div>
         </div>
