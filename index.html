@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALPIN MOTORS — Авто з США та Європи</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #060911;
+            overflow-x: hidden;
+        }
+
+        .alpin-bg {
+            background: radial-gradient(circle at 50% 20%, #111a33 0%, #060911 80%);
+        }
+
+        .pill-white {
+            background-color: #ffffff;
+            color: #0b1120;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: 9999px;
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+        }
+
+        /* Прозорий фоновий логотип (водяний знак) */
+        .alpin-logo-bg {
+            position: relative;
+        }
+        .alpin-logo-bg::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url('./logo.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 450px;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .alpin-logo-bg > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Анімації */
+        @keyframes floatBlob {
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            50% { transform: translate(20px, -20px) scale(1.05); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-blob {
+            animation: floatBlob 7s ease-in-out infinite;
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hover-lift {
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.3);
+        }
+    </style>
+</head>
+<body class="text-slate-100 alpin-bg antialiased selection:bg-blue-500 selection:text-white">
+
+    <!-- 1. ШАПКА САЙТУ (HEADER) -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#060911]/80 backdrop-blur-md border-b border-slate-800/80 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <a href="#" class="flex items-center gap-4 group">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-700/80 group-hover:border-blue-500 flex items-center justify-center transition duration-300 shadow-xl overflow-hidden p-0">
+                        <img src="./logo.svg" alt="ALPIN Logo" class="w-full h-full object-contain scale-[3.5] group-hover:scale-[3.8] transition duration-300">
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-black text-white tracking-wider leading-none uppercase">ALPIN</span>
+                        <span class="text-xs font-bold text-blue-400 tracking-[0.25em] leading-tight uppercase mt-1">MOTORS</span>
+                    </div>
+                </a>
+
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 transition duration-200">ХТО МИ</a>
+                    <a href="#services" class="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 transition duration-200">ПОСЛУГИ</a>
+                    <a href="#catalog" class="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 transition duration-200">АВТО ПІД ЗАМОВЛЕННЯ</a>
+                    <a href="#route" class="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 transition duration-200">МАРШРУТ</a>
+                </nav>
+
+                <div class="flex items-center gap-4">
+                    <a href="#lead-form-section" class="hidden sm:inline-flex items-center gap-2.5 bg-blue-600 hover:bg-blue-500 text-white font-extrabold px-6 py-2.5 rounded-full text-xs uppercase tracking-wider transition duration-300 shadow-lg shadow-blue-600/30 hover:scale-105 active:scale-95">
+                        <i class="fa-solid fa-paper-plane text-xs"></i>
+                        <span>Залишити заявку</span>
+                    </a>
+
+                    <button id="mobile-menu-btn" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="md:hidden text-slate-300 hover:text-white focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-[#060911] border-b border-slate-800 px-4 pt-3 pb-6 space-y-3">
+            <a href="#about" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 border-b border-slate-800/50">ХТО МИ</a>
+            <a href="#services" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 border-b border-slate-800/50">ПОСЛУГИ</a>
+            <a href="#catalog" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 border-b border-slate-800/50">АВТО ПІД ЗАМОВЛЕННЯ</a>
+            <a href="#route" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 border-b border-slate-800/50">МАРШРУТ</a>
+        </div>
+    </header>
+
+    <!-- 2. ГОЛОВНИЙ ЕКРАН (HERO) З АНІМАЦІЯМИ -->
+    <section class="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden alpin-logo-bg">
+        <!-- Анімований фоновий світловий ефект -->
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-blue-600/20 blur-[140px] rounded-full pointer-events-none animate-blob"></div>
+
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center animate-fade-in">
+            <div class="inline-flex items-center gap-2 px-5 py-2 mb-6 pill-white text-xs sm:text-sm font-black tracking-wider uppercase shadow-xl hover-lift cursor-default">
+                <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+                <span>ЗНАХОДИМО ТЕ, ЩО ШУКАЄТЕ</span>
+            </div>
+
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white mb-6 leading-[1.15]">
+                Ваш надійний провідник <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-blue-500">
+                    у купівлі авто зі США та Європи
+                </span>
+                <div class="inline-flex items-center gap-1.5 align-middle ml-2">
+                    <span class="text-xl sm:text-3xl bg-slate-800/80 border border-slate-700/80 px-2.5 py-1 rounded-xl">🇺🇸</span>
+                    <span class="text-xl sm:text-3xl bg-slate-800/80 border border-slate-700/80 px-2.5 py-1 rounded-xl">🇪🇺</span>
+                </div>
+            </h1>
+
+            <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-6 text-xs sm:text-sm text-slate-300 font-semibold mb-10 max-w-3xl mx-auto">
+                <div class="flex items-center gap-2 bg-slate-900/60 border border-slate-800/80 px-3.5 py-2 rounded-full backdrop-blur-md hover-lift">
+                    <i class="fa-solid fa-file-contract text-blue-400"></i>
+                    <span>Офіційний договір</span>
+                </div>
+                <div class="flex items-center gap-2 bg-slate-900/60 border border-slate-800/80 px-3.5 py-2 rounded-full backdrop-blur-md hover-lift">
+                    <i class="fa-solid fa-shield-halved text-blue-400"></i>
+                    <span>Якісний підбір без сюрпризів</span>
+                </div>
+                <div class="flex items-center gap-2 bg-slate-900/60 border border-slate-800/80 px-3.5 py-2 rounded-full backdrop-blur-md hover-lift">
+                    <i class="fa-solid fa-truck-fast text-blue-400"></i>
+                    <span>Контроль доставки 24/7</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-16">
+                <a href="#lead-form-section" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-black px-8 py-4 rounded-2xl text-xs uppercase tracking-wider transition shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 group hover-lift">
+                    <span>Залишити заявку</span>
+                    <i class="fa-solid fa-arrow-right transition group-hover:translate-x-1"></i>
+                </a>
+                <a href="#about" class="w-full sm:w-auto bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 text-slate-200 font-extrabold px-8 py-4 rounded-2xl text-xs uppercase tracking-wider transition backdrop-blur-md hover-lift">
+                    Дізнатися більше
+                </a>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 pt-8 border-t border-slate-800/60 max-w-2xl mx-auto">
+                <div class="text-center hover-lift p-2 rounded-xl">
+                    <div class="text-xl sm:text-2xl font-black text-white">500+</div>
+                    <div class="text-[10px] sm:text-xs text-slate-400 font-bold uppercase tracking-wider">Привезених авто</div>
+                </div>
+                <div class="text-center hover-lift p-2 rounded-xl">
+                    <div class="text-xl sm:text-2xl font-black text-blue-400">до 30%</div>
+                    <div class="text-[10px] sm:text-xs text-slate-400 font-bold uppercase tracking-wider">Економії бюджету</div>
+                </div>
+                <div class="col-span-2 md:col-span-1 text-center hover-lift p-2 rounded-xl">
+                    <div class="text-xl sm:text-2xl font-black text-white">6-55 днів</div>
+                    <div class="text-[10px] sm:text-xs text-slate-400 font-bold uppercase tracking-wider">Терміни доставки</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. ХТО МИ (ПОВНИЙ ЦИКЛ СПІВПРАЦІ) -->
+    <section id="about" class="py-16 border-t border-slate-800/60 bg-[#080d1a]/80 backdrop-blur-sm alpin-logo-bg">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-blue-400 text-xs font-bold uppercase tracking-widest block mb-2">// ПОВНИЙ ЦИКЛ СПІВПРАЦІ</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">МИ ЗАЙМАЄМОСЬ</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 text-center">
+                <div class="bg-slate-900/60 border border-slate-800 p-8 rounded-3xl relative overflow-hidden group hover-lift hover:border-blue-500/50 transition">
+                    <div class="w-14 h-14 bg-blue-600/10 rounded-2xl flex items-center justify-center text-blue-400 mx-auto mb-6 text-2xl group-hover:scale-110 transition duration-300">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </div>
+                    <div class="pill-white text-xs px-4 py-1.5 inline-block mb-4">КУПІВЛЕЮ</div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Закриті та відкриті аукціони США (Copart, IAAI, Manheim) та перевірені європейські майданчики. Вигідний викуп без переплат.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900/60 border border-slate-800 p-8 rounded-3xl relative overflow-hidden group hover-lift hover:border-blue-500/50 transition">
+                    <div class="w-14 h-14 bg-blue-600/10 rounded-2xl flex items-center justify-center text-blue-400 mx-auto mb-6 text-2xl group-hover:scale-110 transition duration-300">
+                        <i class="fa-solid fa-magnifying-glass font-bold"></i>
+                    </div>
+                    <div class="pill-white text-xs px-4 py-1.5 inline-block mb-4">ПІДБОРОМ</div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Здійснюємо якісний підбір без сюрпризів. Перевіряємо в 4 етапи та надсилаємо тільки перевірені варіанти без прихованих нюансів.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900/60 border border-slate-800 p-8 rounded-3xl relative overflow-hidden group hover-lift hover:border-blue-500/50 transition">
+                    <div class="w-14 h-14 bg-blue-600/10 rounded-2xl flex items-center justify-center text-blue-400 mx-auto mb-6 text-2xl group-hover:scale-110 transition duration-300">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <div class="pill-white text-xs px-4 py-1.5 inline-block mb-4">ДОСТАВКОЮ</div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Контроль та супровід автомобіля на кожному етапі. Безпечне транспортування завдяки власній логістиці кожного автомобіля в Україну 🇺🇦
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. ПОСЛУГИ ПІД КЛЮЧ -->
+    <section id="services" class="py-20 border-t border-slate-800/60 alpin-logo-bg">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-blue-400 text-xs font-bold uppercase tracking-widest block mb-2">// НАДІЙНІСТЬ ТА ПРОЗОРІСТЬ</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">НАШІ ПОСЛУГИ ПІД КЛЮЧ</h2>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-slate-900/90 border border-slate-800 p-6 rounded-3xl hover:border-blue-500/50 hover-lift transition flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-blue-600/10 rounded-xl flex items-center justify-center text-blue-400 mb-5 text-xl group-hover:scale-110 transition duration-300">
+                            <i class="fa-solid fa-file-contract"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white uppercase tracking-wider mb-2">Розмитнення & Документи</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            Повний юридичний супровід, розмитнення за оптимальними тарифами та швидке оформлення.
+                        </p>
+                    </div>
+                    <span class="text-[10px] font-bold text-blue-400 uppercase tracking-widest">// Без бюрократії</span>
+                </div>
+
+                <div class="bg-slate-900/90 border border-slate-800 p-6 rounded-3xl hover:border-blue-500/50 hover-lift transition flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-blue-600/10 rounded-xl flex items-center justify-center text-blue-400 mb-5 text-xl">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white uppercase tracking-wider mb-2">Підбір авто та перевірка</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            Професійний аналіз історії (Carfax), детальне вивчення стану та чіткий розрахунок під ключ вже в Україні.
+                        </p>
+                    </div>
+                    <span class="text-[10px] font-bold text-blue-400 uppercase tracking-widest">// Чіткий кошторис</span>
+                </div>
+
+                <div class="bg-slate-900/90 border border-slate-800 p-6 rounded-3xl hover:border-blue-500/50 hover-lift transition flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-blue-600/10 rounded-xl flex items-center justify-center text-blue-400 mb-5 text-xl">
+                            <i class="fa-solid fa-headset"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white uppercase tracking-wider mb-2">Супровід 24/7</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            Постійний зв'язок з менеджером, онлайн-трекінг та 100% страхування вантажу на шляху до вас.
+                        </p>
+                    </div>
+                    <span class="text-[10px] font-bold text-blue-400 uppercase tracking-widest">// Повний спокій</span>
+                </div>
+
+                <div class="bg-slate-900/90 border border-slate-800 p-6 rounded-3xl hover:border-blue-500/50 hover-lift transition flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-blue-600/10 rounded-xl flex items-center justify-center text-blue-400 mb-5 text-xl">
+                            <i class="fa-solid fa-certificate"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white uppercase tracking-wider mb-2">Сертифікація & облік</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            Проходження відповідності стандартам та постановка автомобіля на державний облік.
+                        </p>
+                    </div>
+                    <span class="text-[10px] font-bold text-blue-400 uppercase tracking-widest">// Готовий техпаспорт</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. КАТАЛОГ / АВТО ПІД ЗАМОВЛЕННЯ (ПОДІЛЕНЕ НА США ТА ЄВРОПУ) -->
+    <section id="catalog" class="py-20 bg-[#080d1a]/80 border-t border-slate-800/60 backdrop-blur-sm alpin-logo-bg">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-blue-400 text-xs font-bold uppercase tracking-widest block mb-2">// НАПРЯМКИ ІМПОРТУ</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight mb-4">АВТО ПІД ЗАМОВЛЕННЯ</h2>
+                <p class="text-xs sm:text-sm text-slate-400 max-w-2xl mx-auto">
+                    Оберіть зручний напрямок — підберемо найкращі пропозиції зі США 🇺🇸 або Європи 🇪🇺 за вашим бюджетом
+                </p>
+            </div>
+
+            <!-- СЮДИ ДИНАМІЧНО ВСТАВЛЯЮТЬСЯ АВТО З cars.js (з розділенням по регіонах) -->
+            <div id="cars-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </div>
+    </section>
+
+    <!-- 6. МАРШРУТ -->
+    <section id="route" class="py-24 relative overflow-hidden border-t border-slate-800/60 alpin-logo-bg">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="inline-block px-6 py-2 mb-4 pill-white text-xs sm:text-sm font-black tracking-wider uppercase">
+                АВТО «ПІД КЛЮЧ»
+            </div>
+            
+            <h2 class="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight mb-3">
+                Починаємо співпрацю офіційно за договором — <br class="hidden sm:inline">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-blue-500">
+                    і беремо під повний контроль кожен етап
+                </span>
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto mb-16 font-medium">
+                Гарантуємо фіксовані умови, безпечну доставку від 6 до 55 днів та повну звітність
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-4 items-stretch relative">
+                <div class="bg-slate-900/80 border border-slate-800 p-6 rounded-3xl text-left hover-lift transition duration-300 flex flex-col justify-between relative">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-2xl">🇺🇸 🇪🇺</span>
+                            <span class="text-[10px] font-black text-blue-400 bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-full uppercase tracking-wider">Етап 01</span>
+                        </div>
+                        <h3 class="text-base font-black text-white uppercase tracking-wider mb-1">АУКЦІОН ТА ПІДБІР</h3>
+                        <p class="text-[11px] text-slate-400 mb-4">// США & Європа</p>
+                        
+                        <ul class="space-y-2 text-xs text-slate-300">
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check text-blue-400 text-xs"></i>
+                                <span>Підписання офіційного договору</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check text-blue-400 text-xs"></i>
+                                <span>Перевіряємо в 4 етапи та надсилаємо перевірені варіанти</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check text-blue-400 text-xs"></i>
+                                <span>Вигідний викуп авто без сюрпризів</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/80 border border-blue-500/40 p-6 rounded-3xl text-left hover-lift transition duration-300 flex flex-col justify-between relative shadow-lg shadow-blue-500/5">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-2 text-blue-400">
+                                <i class="fa-solid fa-ship text-xl" style="animation: shipMove 3s ease-in-out infinite;"></i>
+                                <i class="fa-solid fa-truck text-lg"></i>
+                            </div>
+                            <span class="text-[10px] font-black text-blue-400 bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-full uppercase tracking-wider">Етап 02</span>
+                        </div>
+                        <h3 class="text-base font-black text-white uppercase tracking-wider mb-1">БЕЗПЕЧНА ЛОГІСТИКА</h3>
+                        <p class="text-[11px] text-blue-400 mb-4">// Доставка від 6 до 55 днів</p>
+                        
+                        <ul class="space-y-2 text-xs text-slate-300">
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check text-blue-400 text-xs"></i>
+                                <span>100% страхування від будь-яких ризиків</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check text-blue-400 text-xs"></i>
+                                <span>Фотозвіт на кожному етапі шляху</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check text-blue-400 text-xs"></i>
+                                <span>Супровід та контроль 24/7 (не турбуйтесь про терміни)</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/80 border border-slate-800 p-6 rounded-3xl text-left hover-lift transition duration-300 flex flex-col justify-between relative">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-2xl">🇺🇦</span>
+                            <span class="text-[10px] font-black text-blue-400 bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-full uppercase tracking-wider">Етап 03</span>
+                        </div>
+                        <h3 class="text-base font-black text-white uppercase tracking-wider mb-1">РОЗМИТНЕННЯ ТА ПЕРШИЙ ОБЛІК</h3>
+                        <p class="text-[11px] text-slate-400 mb-4">// Вручення в Україні</p>
+                        
+                        <ul class="space-y-2 text-xs text-slate-300">
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check text-blue-400 text-xs"></i>
+                                <span>Швидке розмитнення авто</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check text-blue-400 text-xs"></i>
+                                <span>Ремонт та сертифікація (за потреби)</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check text-blue-400 text-xs"></i>
+                                <span>Видача готового авто з повним пакетом документів</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div class="text-center sm:text-left">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">ВІД ПЕРШОГО КЛІКУ</span>
+                    <span class="text-sm font-black text-white uppercase tracking-wider">ДО КЛЮЧІВ У ВАШИХ РУКАХ 🔑</span>
+                </div>
+
+                <a href="#lead-form-section" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-extrabold px-8 py-4 rounded-2xl text-xs uppercase tracking-wider transition shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 hover-lift">
+                    <span>Залишити заявку</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. ФОРМА ЗАЯВКИ ТА ФУТЕР -->
+    <section id="lead-form-section" class="py-24 relative overflow-hidden border-t border-slate-800/60 alpin-logo-bg">
+        <div class="absolute bottom-0 right-1/4 w-[500px] h-[300px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="bg-slate-900/90 border border-slate-800 p-8 sm:p-12 rounded-3xl shadow-2xl backdrop-blur-md">
+                <div class="text-center mb-10">
+                    <span class="text-blue-400 text-xs font-bold uppercase tracking-widest block mb-2">// ЗРОБІТЬ КРОК ДО МРИЇ</span>
+                    <h2 class="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight mb-3">ЗАЛИШИТИ ЗАЯВКУ</h2>
+                    <p class="text-xs sm:text-sm text-slate-400 max-w-lg mx-auto">
+                        Заповніть форму, і наш менеджер зв'яжеться з вами протягом 15 хвилин для консультації та підбору авто.
+                    </p>
+                </div>
+
+                <!-- Форма інтегрована з Telegram API (як ви налаштовували раніше) -->
+                <form id="lead-form" class="space-y-6">
+                    <div class="grid sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Ваше ім'я</label>
+                            <input type="text" name="name" required placeholder="Олександр" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Номер телефону</label>
+                            <input type="tel" name="phone" required placeholder="+380 (XX) XXX-XX-XX" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 transition">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Бажаний напрямок / Марка авто</label>
+                        <input type="text" name="details" placeholder="Наприклад: BMW X5 зі США або Європи" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 transition">
+                    </div>
+
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-4 rounded-xl text-xs uppercase tracking-widest transition shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2">
+                        <span>Надіслати заявку</span>
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ФУТЕР -->
+    <footer class="bg-[#04060b] border-t border-slate-900 py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center overflow-hidden p-0">
+                    <img src="./logo.svg" alt="ALPIN Logo" class="w-full h-full object-contain scale-[3.5]">
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-sm font-black text-white tracking-wider uppercase">ALPIN MOTORS</span>
+                    <span class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Авто з США та Європи</span>
+                </div>
+            </div>
+
+            <div class="text-xs text-slate-500 text-center sm:text-right font-medium">
+                &copy; 2026 ALPIN MOTORS. Всі права захищені. Офіційний імпорт.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Підключення файлу зі списком машин -->
+    <script src="./cars.js"></script>
+
+    <!-- Скрипт відправки форми в Telegram -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('lead-form'); 
+        
+        if (!form) return;
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const BOT_TOKEN = '8977365283:AAGKMAmKy4uAEiL_Wfg74Rqo43MYSw1rBHQ';
+            const CHAT_ID = '5932490764';
+
+            const nameInput = form.querySelector('input[name="name"]') || form.querySelector('#name');
+            const phoneInput = form.querySelector('input[name="phone"]') || form.querySelector('#phone');
+            const budgetInput = form.querySelector('input[name="budget"]');
+            const carInput = form.querySelector('textarea[name="car"]');
+
+            const name = nameInput ? nameInput.value : 'Не вказано';
+            const phone = phoneInput ? phoneInput.value : 'Не вказано';
+            const budget = budgetInput && budgetInput.value ? budgetInput.value : 'Не вказано';
+            const car = carInput && carInput.value ? carInput.value : 'Загальна заявка / Підбір авто';
+
+            const message = `🚨 <b>Нова заявка з сайту Alpin Motors!</b>\n\n` +
+                            `👤 <b>Ім'я:</b> ${name}\n` +
+                            `📞 <b>Телефон:</b> ${phone}\n` +
+                            `💰 <b>Бюджет:</b> ${budget}\n` +
+                            `🚗 <b>Коментар/Авто:</b> ${car}`;
+
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+            try {
+                const submitBtn = form.querySelector('button[type="submit"]');
+                if (submitBtn) submitBtn.disabled = true;
+
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+
+                if (response.ok) {
+                    alert('Дякуємо! Вашу заявку успішно надіслано. Ми зв\'яжемося з вами найближчим часом.');
+                    form.reset();
+                } else {
+                    alert('Сталася помилка при відправці. Спробуйте ще раз пізніше.');
+                }
+
+                if (submitBtn) submitBtn.disabled = false;
+
+            } catch (error) {
+                console.error('Помилка:', error);
+                alert('Помилка мережі. Перевірте підключення до інтернету.');
+                const submitBtn = form.querySelector('button[type="submit"]');
+                if (submitBtn) submitBtn.disabled = false;
+            }
+        });
+    });
+    </script>
