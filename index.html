@@ -300,10 +300,10 @@
         </div>
     </section>
 
-    <!-- 5. КАТАЛОГ / АВТО ПІД ЗАМОВЛЕННЯ (ПОДІЛЕНЕ НА США ТА ЄВРОПУ) -->
+    <<!-- 5. КАТАЛОГ / АВТО ПІД ЗАМОВЛЕННЯ (ПОДІЛЕНЕ НА США ТА ЄВРОПУ) -->
     <section id="catalog" class="py-20 bg-[#080d1a]/80 border-t border-slate-800/60 backdrop-blur-sm alpin-logo-bg">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
+            <div class="text-center mb-12">
                 <span class="text-blue-400 text-xs font-bold uppercase tracking-widest block mb-2">// НАПРЯМКИ ІМПОРТУ</span>
                 <h2 class="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight mb-4">АВТО ПІД ЗАМОВЛЕННЯ</h2>
                 <p class="text-xs sm:text-sm text-slate-400 max-w-2xl mx-auto">
@@ -311,11 +311,30 @@
                 </p>
             </div>
 
-            <!-- СЮДИ ДИНАМІЧНО ВСТАВЛЯЮТЬСЯ АВТО З cars.js (з розділенням по регіонах) -->
+            <!-- Кнопки перемикання регіонів та анімаційна машинка -->
+            <div class="flex flex-col items-center mb-12">
+                <div class="flex flex-wrap justify-center gap-3 mb-6">
+                    <button onclick="switchRegion('all')" data-region="all" class="region-btn bg-blue-600 border border-blue-500 text-white font-bold px-6 py-3 rounded-2xl text-xs uppercase tracking-wider transition shadow-lg shadow-blue-600/30">
+                        Всі напрямки
+                    </button>
+                    <button onclick="switchRegion('us')" data-region="us" class="region-btn bg-slate-900/80 border border-slate-800 text-slate-400 font-bold px-6 py-3 rounded-2xl text-xs uppercase tracking-wider transition hover:border-blue-500/50">
+                        🇺🇸 США
+                    </button>
+                    <button onclick="switchRegion('eu')" data-region="eu" class="region-btn bg-slate-900/80 border border-slate-800 text-slate-400 font-bold px-6 py-3 rounded-2xl text-xs uppercase tracking-wider transition hover:border-blue-500/50">
+                        🇪🇺 Європа
+                    </button>
+                </div>
+
+                <!-- Контейнер анімації машинки -->
+                <div id="car-drive-anim" class="h-8 flex items-center justify-center text-blue-400 text-lg transition-all duration-500 opacity-0">
+                    <i class="fa-solid fa-car-side"></i>
+                </div>
+            </div>
+
+            <!-- СЮДИ ДИНАМІЧНО ВСТАВЛЯЮТЬСЯ АВТО З cars.js -->
             <div id="cars-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
         </div>
     </section>
-
     <!-- 6. МАРШРУТ -->
     <section id="route" class="py-24 relative overflow-hidden border-t border-slate-800/60 alpin-logo-bg">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
