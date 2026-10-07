@@ -11,7 +11,7 @@ const carsData = [
         transmission: 'Автомат',
         priceUkraine: '$6,400',
         priceWithUs: '$5,150',
-        image: './images/golf6.jpg'
+        image: '/images/golf6.jpg'
     },
     {
         id: 2,
@@ -23,7 +23,7 @@ const carsData = [
         transmission: 'Автомат',
         priceUkraine: '11,670 €',
         priceWithUs: '7,850 €',
-        image: './images/peugeot3008.jpg'
+        image: '/images/peugeot3008.jpg'
     },
     {
         id: 3,
@@ -35,7 +35,7 @@ const carsData = [
         transmission: 'Механіка',
         priceUkraine: '8,200 €',
         priceWithUs: '5,870 €',
-        image: './images/bmw3.jpg'
+        image: '/images/bmw3.jpg'
     },
     {
         id: 4,
@@ -47,7 +47,7 @@ const carsData = [
         transmission: 'Автомат',
         priceUkraine: '10,300 €',
         priceWithUs: '7,860 €',
-        image: './images/outlander.jpg'
+        image: '/images/outlander.jpg'
     },
     {
         id: 5,
@@ -59,7 +59,7 @@ const carsData = [
         transmission: 'Автомат',
         priceUkraine: '7,500 €',
         priceWithUs: '5,100 €',
-        image: './images/octavia.jpg'
+        image: '/images/octavia.jpg'
     },
     {
         id: 6,
@@ -71,7 +71,7 @@ const carsData = [
         transmission: 'Механіка',
         priceUkraine: '7,400 €',
         priceWithUs: '4,870 €',
-        image: './images/megane.jpg'
+        image: '/images/megane.jpg'
     },
     {
         id: 7,
@@ -83,7 +83,7 @@ const carsData = [
         transmission: 'Автомат',
         priceUkraine: '9,000 €',
         priceWithUs: '6,870 €',
-        image: './images/peugeot508.jpg'
+        image: '/images/peugeot508.jpg'
     },
 
     // --- АМЕРИКА ---
@@ -97,7 +97,7 @@ const carsData = [
         transmission: 'Автомат',
         priceUkraine: '$16,400',
         priceWithUs: '$12,380',
-        image: './images/tiguan.jpg'
+        image: '/images/tiguan.jpg'
     },
     {
         id: 9,
@@ -109,7 +109,7 @@ const carsData = [
         transmission: 'Автомат',
         priceUkraine: '$15,700',
         priceWithUs: '$13,150',
-        image: './images/audia4.jpg'
+        image: '/images/audia4.jpg'
     },
     {
         id: 10,
@@ -121,7 +121,7 @@ const carsData = [
         transmission: 'Автомат',
         priceUkraine: '$16,500',
         priceWithUs: '$11,230',
-        image: './images/bmw330.jpg'
+        image: '/images/bmw330.jpg'
     },
     {
         id: 11,
@@ -133,7 +133,7 @@ const carsData = [
         transmission: 'Автомат',
         priceUkraine: '$11,300',
         priceWithUs: '$9,670',
-        image: './images/escape.jpg'
+        image: '/images/escape.jpg'
     }
 ];
 
