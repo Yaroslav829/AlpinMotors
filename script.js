@@ -6,8 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
 
-        // Офіційний ендпоінт SalesDrive згідно з документацією
-        const SALESDRIVE_URL = 'https://alpinmotors.salesdrive.me/handler/';
+        const SALESDRIVE_URL = 'https://alpinmotors.salesdrive.me/api/order/create/';
         const SALESDRIVE_API_KEY = 'z3Kk9Dly_C0Km8rNmbLLgvhNH7a19Gn-9gy8o4aqh5RMDwYt-NUuw1jx_JQqPuLSCfdrTn3BpX_t8hjfU-JVNiNByb_tZNB20ecB';
 
         const nameInput = form.querySelector('input[name="name"]');
@@ -22,12 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (submitBtn) submitBtn.disabled = true;
 
         try {
-            // Використовуємо mode: 'no-cors', щоб обійти блокування браузера (CORS)
-            await fetch(SALESDRIVE_URL, {
+            const response = await fetch(SALESDRIVE_URL, {
                 method: 'POST',
-                mode: 'no-cors',
                 headers: {
-                    'X-Api-Key': SALESDRIVE_API_KEY,
+                    'Form-Api-Key': SALESDRIVE_API_KEY,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
@@ -38,8 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
             });
 
-            // Оскільки mode 'no-cors' не дає прочитати відповідь сервера напряму, 
-            // вважаємо запит успішним і виводимо подяку клієнту
+            if (!response.ok) {
+                throw new Error(`Помилка сервера: ${response.status}`);
+            }
+
             alert('Дякуємо! Вашу заявку успішно надіслано. Ми зв\'яжемося з вами найближчим часом.');
             form.reset();
 
