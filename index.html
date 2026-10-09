@@ -802,6 +802,213 @@
 
     <!-- Підключення файлу зі списком машин -->
     <script src="./cars.js"></script>
+<!-- ===== ЖИВІ АНІМАЦІЇ ALPIN MOTORS =====
+     Вставте цей блок один раз, прямо перед закриваючим </body> (після <script src="./script.js"></script>).
+     Містить: лічильники, поява блоків при прокрутці, нахил карток авто, корабель на хвилях, карту маршруту. -->
+<style>
+    /* --- Поява блоків --- */
+    .rv { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s cubic-bezier(.2,.7,.2,1); }
+    .rv.rv-in { opacity: 1; transform: none; }
+    .stat-num { font-variant-numeric: tabular-nums; }
 
+    /* --- Корабель --- */
+    #ocean { position: relative; width: 100%; height: 215px; overflow: hidden; pointer-events: none; margin-top: 24px; }
+    #ocean .oc-label { position: absolute; top: 14px; width: max-content; white-space: nowrap; font-size: 11px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: rgba(148,163,184,.75); }
+    #ocean .oc-label.l { left: 5%; } #ocean .oc-label.r { right: 5%; }
+    #ocean .oc-ship { position: absolute; bottom: 24px; left: 0; width: 360px; height: auto; will-change: transform; }
+    #ocean .oc-sway { transform-box: fill-box; transform-origin: 50% 100%; animation: ocSway 4.2s ease-in-out infinite; }
+    @keyframes ocSway { 0%,100% { transform: rotate(-1.1deg) translateY(0); } 50% { transform: rotate(1.1deg) translateY(3px); } }
+    #ocean .oc-smoke { transform-box: fill-box; transform-origin: center; animation: ocSmoke 3s ease-out infinite; opacity: 0; }
+    #ocean .oc-smoke:nth-of-type(2) { animation-delay: 1s; } #ocean .oc-smoke:nth-of-type(3) { animation-delay: 2s; }
+    @keyframes ocSmoke { 0% { transform: translate(0,0) scale(.5); opacity: .55; } 100% { transform: translate(-26px,-26px) scale(1.6); opacity: 0; } }
+    #ocean .oc-wave { position: absolute; left: 0; bottom: 0; height: auto; }
+    #ocean .oc-wave.back { animation: ocWaveA 12s linear infinite; }
+    #ocean .oc-wave.front { animation: ocWaveB 7s linear infinite; }
+    @keyframes ocWaveA { from { transform: translateX(0); } to { transform: translateX(-240px); } }
+    @keyframes ocWaveB { from { transform: translateX(-180px); } to { transform: translateX(0); } }
+    @media (max-width: 640px) { #ocean { height: 170px; } #ocean .oc-ship { width: 240px; bottom: 18px; } #ocean .oc-label { font-size: 9px; letter-spacing: .1em; top: 10px; } #ocean .oc-label.l { left: 4%; } #ocean .oc-label.r { right: 4%; } }
+
+    /* --- Карта маршруту --- */
+    #routeMap { padding: 40px 16px 8px; }
+    #routeMap .map-eyebrow { text-align: center; color: #60a5fa; font-size: 12px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 14px; }
+    #routeMap .map-panel {
+        max-width: 960px; margin: 0 auto; border: 1px solid rgba(30,41,59,.9); border-radius: 24px; overflow: hidden;
+        background-color: rgba(15,23,42,.6);
+        background-image: radial-gradient(rgba(148,163,184,.2) 1px, transparent 1.6px); background-size: 22px 22px;
+    }
+    #routeMap svg { display: block; width: 100%; height: auto; }
+    #routeMap .map-line { fill: none; stroke: #60a5fa; stroke-width: 2; stroke-dasharray: 3 9; stroke-linecap: round; animation: mapFlow 1.2s linear infinite; }
+    @keyframes mapFlow { to { stroke-dashoffset: -24; } }
+    #routeMap text { font-family: 'Montserrat', sans-serif; font-weight: 800; fill: #e2e8f0; letter-spacing: .08em; }
+
+    @media (prefers-reduced-motion: reduce) {
+        .rv { opacity: 1; transform: none; transition: none; }
+        #ocean .oc-sway, #ocean .oc-smoke, #ocean .oc-wave, #routeMap .map-line { animation: none; }
+    }
+</style>
+
+<script>
+(function () {
+    // ---------- Налаштування ----------
+    var CONFIG = {
+        anchor: '#route',   // перед якою секцією додати корабель і карту
+        ship: true,         // false — вимкнути корабель
+        map: true           // false — вимкнути карту
+    };
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function wavePath(period, amp, count, y, bottom) {
+        var w = period * count, d = 'M0 ' + y + ' Q' + (period / 4) + ' ' + (y - amp) + ' ' + (period / 2) + ' ' + y;
+        for (var i = 2; i <= count * 2; i++) d += ' T' + (i * period / 2) + ' ' + y;
+        return d + ' L' + w + ' ' + bottom + ' L0 ' + bottom + ' Z';
+    }
+
+    function shipHTML() {
+        var back = wavePath(240, 9, 12, 20, 70), front = wavePath(180, 7, 16, 14, 46);
+        return '<section id="ocean" aria-hidden="true">' +
+            '<div class="oc-label l">🇺🇸 США · 🇪🇺 Європа</div><div class="oc-label r">🇺🇦 Україна</div>' +
+            '<svg class="oc-wave back" width="2880" height="70" viewBox="0 0 2880 70"><defs><linearGradient id="ocG1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2563eb" stop-opacity=".5"/><stop offset="1" stop-color="#0b1a3a" stop-opacity=".9"/></linearGradient></defs><path d="' + back + '" fill="url(#ocG1)"/></svg>' +
+            '<svg class="oc-ship" id="ocShip" viewBox="0 0 420 150"><g class="oc-sway">' +
+            '<polygon points="20,98 405,98 372,130 52,130" fill="#10285c"/><rect x="20" y="98" width="385" height="6" fill="#3b82f6"/>' +
+            '<rect x="40" y="52" width="320" height="46" fill="#e2e8f0"/><rect x="40" y="52" width="320" height="6" fill="#94a3b8"/>' +
+            '<path d="M70 62V98M100 62V98M130 62V98M160 62V98M190 62V98M220 62V98M250 62V98M280 62V98M310 62V98M340 62V98" stroke="#94a3b8" stroke-width="1.2"/>' +
+            '<rect x="40" y="26" width="72" height="26" fill="#f8fafc"/><rect x="48" y="33" width="10" height="7" fill="#38bdf8"/><rect x="64" y="33" width="10" height="7" fill="#38bdf8"/><rect x="80" y="33" width="10" height="7" fill="#38bdf8"/><rect x="96" y="33" width="10" height="7" fill="#38bdf8"/>' +
+            '<rect x="66" y="10" width="18" height="16" fill="#3b82f6"/><rect x="66" y="10" width="18" height="4" fill="#fff"/>' +
+            '<circle class="oc-smoke" cx="75" cy="8" r="5" fill="#cbd5e1"/><circle class="oc-smoke" cx="75" cy="8" r="5" fill="#cbd5e1"/><circle class="oc-smoke" cx="75" cy="8" r="5" fill="#cbd5e1"/>' +
+            '<path d="M372 52V34" stroke="#94a3b8" stroke-width="2"/><circle cx="372" cy="33" r="3" fill="#fde68a"/>' +
+            '</g></svg>' +
+            '<svg class="oc-wave front" width="2880" height="46" viewBox="0 0 2880 46"><defs><linearGradient id="ocG2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b82f6" stop-opacity=".55"/><stop offset="1" stop-color="#081225" stop-opacity=".95"/></linearGradient></defs><path d="' + front + '" fill="url(#ocG2)"/></svg>' +
+            '</section>';
+    }
+
+    function mapHTML() {
+        return '<section id="routeMap" aria-hidden="true"><div class="map-eyebrow">// Шлях вашого авто</div><div class="map-panel">' +
+            '<svg viewBox="0 0 900 300"><defs><radialGradient id="mpGlow"><stop offset="0" stop-color="#3b82f6" stop-opacity=".55"/><stop offset="1" stop-color="#3b82f6" stop-opacity="0"/></radialGradient></defs>' +
+            '<path id="rtUsa" class="map-line" d="M110 170 Q430 -25 760 140"/><path id="rtEu" class="map-line" d="M470 118 Q620 48 760 140"/>' +
+            '<circle cx="760" cy="140" r="34" fill="url(#mpGlow)"/>' +
+            '<g><circle cx="110" cy="170" r="7" fill="#fff"/><circle cx="110" cy="170" r="7" fill="none" stroke="#60a5fa" stroke-width="2"><animate attributeName="r" values="7;24" dur="2.6s" repeatCount="indefinite"/><animate attributeName="opacity" values=".8;0" dur="2.6s" repeatCount="indefinite"/></circle></g>' +
+            '<g><circle cx="470" cy="118" r="7" fill="#fff"/><circle cx="470" cy="118" r="7" fill="none" stroke="#60a5fa" stroke-width="2"><animate attributeName="r" values="7;24" dur="2.6s" begin=".9s" repeatCount="indefinite"/><animate attributeName="opacity" values=".8;0" dur="2.6s" begin=".9s" repeatCount="indefinite"/></circle></g>' +
+            '<g><circle cx="760" cy="140" r="9" fill="#fbbf24"/><circle cx="760" cy="140" r="9" fill="none" stroke="#fbbf24" stroke-width="2"><animate attributeName="r" values="9;30" dur="2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".9;0" dur="2.2s" repeatCount="indefinite"/></circle></g>' +
+            '<circle r="11" fill="#60a5fa" opacity=".35"><animateMotion dur="6.5s" repeatCount="indefinite"><mpath href="#rtUsa"/></animateMotion></circle><circle r="5" fill="#fff"><animateMotion dur="6.5s" repeatCount="indefinite"><mpath href="#rtUsa"/></animateMotion></circle>' +
+            '<circle r="11" fill="#60a5fa" opacity=".35"><animateMotion dur="4.2s" begin="1s" repeatCount="indefinite"><mpath href="#rtEu"/></animateMotion></circle><circle r="5" fill="#fff"><animateMotion dur="4.2s" begin="1s" repeatCount="indefinite"><mpath href="#rtEu"/></animateMotion></circle>' +
+            '<text x="110" y="205" font-size="15" text-anchor="middle">🇺🇸 США</text><text x="470" y="152" font-size="15" text-anchor="middle">🇪🇺 ЄВРОПА</text><text x="760" y="176" font-size="15" text-anchor="middle">🇺🇦 УКРАЇНА</text>' +
+            '</svg></div></section>';
+    }
+
+    function injectBlocks() {
+        var anchor = document.querySelector(CONFIG.anchor) || document.getElementById('lead-form-section');
+        if (!anchor) return;
+        if (CONFIG.ship) anchor.insertAdjacentHTML('beforebegin', shipHTML());
+        if (CONFIG.map) anchor.insertAdjacentHTML('beforebegin', mapHTML());
+    }
+
+    // ---------- Корабель їде при прокрутці ----------
+    function initShip() {
+        var sec = document.getElementById('ocean'), ship = document.getElementById('ocShip');
+        if (!sec || !ship) return;
+        var ticking = false;
+        function update() {
+            ticking = false;
+            var r = sec.getBoundingClientRect(), vh = window.innerHeight;
+            var p = Math.min(Math.max((vh - r.top) / (vh + r.height), 0), 1);
+            var sw = ship.getBoundingClientRect().width;
+            ship.style.transform = 'translateX(' + (-sw + p * (sec.clientWidth + sw * 1.15)) + 'px)';
+        }
+        if (reduce) { ship.style.transform = 'translateX(' + (sec.clientWidth / 2 - 180) + 'px)'; return; }
+        function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+        update();
+    }
+
+    // ---------- Поява блоків при прокрутці ----------
+    function heroSection() { var h = document.querySelector('h1'); return h ? h.closest('section') : null; }
+
+    function initReveal() {
+        if (reduce || !('IntersectionObserver' in window)) return;
+        var hero = heroSection();
+        var all = [].slice.call(document.querySelectorAll('section .rounded-3xl, section .rounded-2xl, section h2, #routeMap .map-panel'));
+        var nodes = all.filter(function (el) {
+            if (hero && hero.contains(el)) return false;
+            if (el.closest('#cars-container, #mountains, #road, #ocean')) return false;
+            return true;
+        });
+        nodes = nodes.filter(function (n) { return !nodes.some(function (o) { return o !== n && o.contains(n); }); });
+        var counters = new Map();
+        nodes.forEach(function (el) {
+            var par = el.parentElement, i = counters.get(par) || 0;
+            counters.set(par, i + 1);
+            el.style.transitionDelay = Math.min(i * 90, 450) + 'ms';
+            el.classList.add('rv');
+        });
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) {
+                if (!en.isIntersecting) return;
+                var el = en.target; io.unobserve(el);
+                el.classList.add('rv-in');
+                setTimeout(function () { el.classList.remove('rv', 'rv-in'); el.style.transitionDelay = ''; }, 1500);
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+        nodes.forEach(function (n) { io.observe(n); });
+    }
+
+    // ---------- Лічильники в головному екрані ----------
+    function initCounters() {
+        var hero = heroSection();
+        if (reduce || !hero || !('IntersectionObserver' in window)) return;
+        var els = [].slice.call(hero.querySelectorAll('.grid > .text-center > div:first-child')).filter(function (e) { return /\d/.test(e.textContent); });
+        if (!els.length) return;
+        els.forEach(function (el) {
+            var txt = el.textContent.trim();
+            el._cnt = { text: txt, targets: txt.match(/\d+/g).map(Number) };
+            el.classList.add('stat-num');
+            el.textContent = txt.replace(/\d+/g, '0');
+        });
+        function run(el) {
+            var d = el._cnt, start = null, dur = 1700;
+            function step(t) {
+                if (start === null) start = t;
+                var k = Math.min((t - start) / dur, 1), e = 1 - Math.pow(1 - k, 3), i = 0;
+                el.textContent = d.text.replace(/\d+/g, function () { return Math.round(d.targets[i++] * e); });
+                if (k < 1) requestAnimationFrame(step); else el.textContent = d.text;
+            }
+            requestAnimationFrame(step);
+        }
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) { if (en.isIntersecting) { io.unobserve(en.target); run(en.target); } });
+        }, { threshold: 0.6 });
+        els.forEach(function (el) { io.observe(el); });
+    }
+
+    // ---------- Нахил карток авто ----------
+    function initTilt() {
+        if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+        var box = document.getElementById('cars-container');
+        if (!box) return;
+        function cardOf(t) { return t && t.closest ? t.closest('#cars-container > div') : null; }
+        box.addEventListener('mousemove', function (e) {
+            var c = cardOf(e.target); if (!c) return;
+            var r = c.getBoundingClientRect();
+            var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+            c.style.transition = 'transform 90ms linear';
+            c.style.transform = 'perspective(900px) rotateX(' + (-y * 6) + 'deg) rotateY(' + (x * 7) + 'deg) translateY(-4px)';
+        });
+        box.addEventListener('mouseout', function (e) {
+            var c = cardOf(e.target); if (!c || c.contains(e.relatedTarget)) return;
+            c.style.transition = ''; c.style.transform = '';
+        });
+    }
+
+    function start() {
+        injectBlocks();
+        initShip();
+        initReveal();
+        initCounters();
+        initTilt();
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<!-- ===== КІНЕЦЬ БЛОКУ АНІМАЦІЙ ===== -->
     <!-- Відправка форми в SalesDrive -->
     <script src="./script.js"></script>
