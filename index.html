@@ -491,7 +491,7 @@
                     </p>
                 </div>
 
-                <!-- Форма інтегрована з Telegram API (як ви налаштовували раніше) -->
+                <!-- Форма заявки -->
                 <form id="lead-form" class="space-y-6">
                     <div class="grid sm:grid-cols-2 gap-6">
                         <div>
@@ -536,91 +536,32 @@
             </div>
         </div>
     </footer>
-<!-- Закріплені іконки соцмереж у нижньому правому кутку -->
-<div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
-    <!-- Instagram -->
-    <a href="https://www.instagram.com/alpin_motorss?stkn=N2p4ZXJzNTBybXVp" target="_blank" rel="noopener noreferrer" 
-       class="w-12 h-12 bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 hover:scale-110 text-white rounded-full flex items-center justify-center shadow-2xl transition duration-300 group relative"
-       title="Instagram">
-        <i class="fab fa-instagram text-2xl"></i>
-        <span class="absolute right-14 bg-slate-900 text-white text-xs font-semibold px-2.5 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none whitespace-nowrap shadow-md border border-slate-800">
-            Instagram
-        </span>
-    </a>
 
-    <!-- TikTok -->
-    <a href="https://www.tiktok.com/@alpin_motorss?_r=1&_t=ZS-9AMVithdM2f" target="_blank" rel="noopener noreferrer" 
-       class="w-12 h-12 bg-black hover:bg-slate-900 hover:scale-110 text-white rounded-full flex items-center justify-center shadow-2xl border border-slate-800 transition duration-300 group relative"
-       title="TikTok">
-        <i class="fab fa-tiktok text-xl"></i>
-        <span class="absolute right-14 bg-slate-900 text-white text-xs font-semibold px-2.5 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none whitespace-nowrap shadow-md border border-slate-800">
-            TikTok
-        </span>
-    </a>
-</div>
+    <!-- Закріплені іконки соцмереж у нижньому правому кутку -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/alpin_motorss?stkn=N2p4ZXJzNTBybXVp" target="_blank" rel="noopener noreferrer" 
+           class="w-12 h-12 bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 hover:scale-110 text-white rounded-full flex items-center justify-center shadow-2xl transition duration-300 group relative"
+           title="Instagram">
+            <i class="fab fa-instagram text-2xl"></i>
+            <span class="absolute right-14 bg-slate-900 text-white text-xs font-semibold px-2.5 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none whitespace-nowrap shadow-md border border-slate-800">
+                Instagram
+            </span>
+        </a>
+
+        <!-- TikTok -->
+        <a href="https://www.tiktok.com/@alpin_motorss?_r=1&_t=ZS-9AMVithdM2f" target="_blank" rel="noopener noreferrer" 
+           class="w-12 h-12 bg-black hover:bg-slate-900 hover:scale-110 text-white rounded-full flex items-center justify-center shadow-2xl border border-slate-800 transition duration-300 group relative"
+           title="TikTok">
+            <i class="fab fa-tiktok text-xl"></i>
+            <span class="absolute right-14 bg-slate-900 text-white text-xs font-semibold px-2.5 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none whitespace-nowrap shadow-md border border-slate-800">
+                TikTok
+            </span>
+        </a>
+    </div>
+
     <!-- Підключення файлу зі списком машин -->
     <script src="./cars.js"></script>
 
-    <!-- Скрипт відправки форми в Telegram -->
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const form = document.getElementById('lead-form'); 
-        
-        if (!form) return;
-
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const BOT_TOKEN = '8977365283:AAGKMAmKy4uAEiL_Wfg74Rqo43MYSw1rBHQ';
-            const CHAT_ID = '5932490764';
-
-            const nameInput = form.querySelector('input[name="name"]') || form.querySelector('#name');
-            const phoneInput = form.querySelector('input[name="phone"]') || form.querySelector('#phone');
-            const budgetInput = form.querySelector('input[name="budget"]');
-            const carInput = form.querySelector('textarea[name="car"]');
-
-            const name = nameInput ? nameInput.value : 'Не вказано';
-            const phone = phoneInput ? phoneInput.value : 'Не вказано';
-            const budget = budgetInput && budgetInput.value ? budgetInput.value : 'Не вказано';
-            const car = carInput && carInput.value ? carInput.value : 'Загальна заявка / Підбір авто';
-
-            const message = `🚨 <b>Нова заявка з сайту Alpin Motors!</b>\n\n` +
-                            `👤 <b>Ім'я:</b> ${name}\n` +
-                            `📞 <b>Телефон:</b> ${phone}\n` +
-                            `💰 <b>Бюджет:</b> ${budget}\n` +
-                            `🚗 <b>Коментар/Авто:</b> ${car}`;
-
-            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-
-            try {
-                const submitBtn = form.querySelector('button[type="submit"]');
-                if (submitBtn) submitBtn.disabled = true;
-
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: CHAT_ID,
-                        text: message,
-                        parse_mode: 'HTML'
-                    })
-                });
-
-                if (response.ok) {
-                    alert('Дякуємо! Вашу заявку успішно надіслано. Ми зв\'яжемося з вами найближчим часом.');
-                    form.reset();
-                } else {
-                    alert('Сталася помилка при відправці. Спробуйте ще раз пізніше.');
-                }
-
-                if (submitBtn) submitBtn.disabled = false;
-
-            } catch (error) {
-                console.error('Помилка:', error);
-                alert('Помилка мережі. Перевірте підключення до інтернету.');
-                const submitBtn = form.querySelector('button[type="submit"]');
-                if (submitBtn) submitBtn.disabled = false;
-            }
-        });
-    });
-    </script>
+    <!-- Підключення файлу логіки для SalesDrive -->
+    <script src="./script.js"></script>
