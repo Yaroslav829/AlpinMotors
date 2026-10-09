@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Офіційний ендпоінт SalesDrive згідно з документацією
         const SALESDRIVE_URL = 'https://alpinmotors.salesdrive.me/handler/';
-        const SALESDRIVE_API_KEY = 'OWNGltbpec8JwtfseyWuXMYY0fkfw576tqoNNQ-zCazQ80jCO9n3oKXR7';
+        const SALESDRIVE_API_KEY = 'z3Kk9Dly_C0Km8rNmbLLgvhNH7a19Gn-9gy8o4aqh5RMDwYt-NUuw1jx_JQqPuLSCfdrTn3BpX_t8hjfU-JVNiNByb_tZNB20ecB';
 
         const nameInput = form.querySelector('input[name="name"]');
         const phoneInput = form.querySelector('input[name="phone"]');
