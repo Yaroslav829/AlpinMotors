@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('lead-form'); 
-    
     if (!form) return;
 
     form.addEventListener('submit', async function(e) {
@@ -44,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('Помилка:', error);
-            alert('Сталася помилка при відправці. Спробуйте ще раз пізніше.');
+            alert('Сталася помилка при відправці. Перевірте консоль.');
         } finally {
             if (submitBtn) submitBtn.disabled = false;
         }
