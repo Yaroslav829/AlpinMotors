@@ -157,9 +157,108 @@
             <a href="#route" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 border-b border-slate-800/50">МАРШРУТ</a>
         </div>
     </header>
+<!-- ===== ГОРИ МІЖ ШАПКОЮ ТА ГОЛОВНИМ ЕКРАНОМ ===== -->
+<style>
+    #mountains {
+        --mtn-w: min(760px, 92vw);
+        position: relative;
+        width: 100%;
+        height: calc(96px + var(--mtn-w) * 0.4655);
+        overflow: hidden;
+        pointer-events: none;
+        background: radial-gradient(ellipse 60% 70% at 52% 100%, rgba(37, 99, 235, 0.18), transparent 70%);
+    }
+    #mountains .mtn {
+        position: absolute;
+        bottom: 0;
+        height: auto;
+        transform-origin: 50% 100%;
+        will-change: transform, opacity;
+    }
+    #mountains .mtn-main { left: 50%; width: var(--mtn-w); margin-left: calc(var(--mtn-w) / -2); }
+    #mountains .mtn-left { left: -6%; width: calc(var(--mtn-w) * 0.55); opacity: 0.28; }
+    #mountains .mtn-right { right: -8%; width: calc(var(--mtn-w) * 0.48); opacity: 0.22; }
+    #mountains .mtn-fade {
+        position: absolute; left: 0; right: 0; bottom: 0; height: 38%;
+        background: linear-gradient(to top, #060911 8%, rgba(6, 9, 17, 0));
+    }
+    /* Контур «малюється», потім заливається */
+    #mountains .mtn-main path {
+        fill-opacity: 0;
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        animation: mtnDraw 1.6s ease-out 0.2s forwards, mtnFill 1s ease-out 1.5s forwards;
+    }
+    @keyframes mtnDraw { to { stroke-dashoffset: 0; } }
+    @keyframes mtnFill { to { fill-opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) {
+        #mountains .mtn-main path { animation: none; fill-opacity: 1; stroke-dashoffset: 0; }
+    }
+</style>
 
+<section id="mountains" aria-hidden="true">
+    <svg class="mtn mtn-left" viewBox="0 0 590 275" preserveAspectRatio="xMidYMax meet">
+        <path d="M586 271 L477 150 L461 168 L373 57 L312 4 L177 144 L141 126 L80 189 L57 187 L4 237 L68 198 L48 227 L142 148 L176 162 L309 26 L310 71 L326 66 L294 131 L339 83 L371 163 L393 156 L438 232 L414 175 L424 167 L472 209 L473 174 Z" fill="#93b4ff"/>
+    </svg>
+    <svg class="mtn mtn-right" viewBox="0 0 590 275" preserveAspectRatio="xMidYMax meet" style="transform: scaleX(-1);">
+        <path d="M586 271 L477 150 L461 168 L373 57 L312 4 L177 144 L141 126 L80 189 L57 187 L4 237 L68 198 L48 227 L142 148 L176 162 L309 26 L310 71 L326 66 L294 131 L339 83 L371 163 L393 156 L438 232 L414 175 L424 167 L472 209 L473 174 Z" fill="#93b4ff"/>
+    </svg>
+    <svg class="mtn mtn-main" viewBox="0 0 590 275" preserveAspectRatio="xMidYMax meet">
+        <defs>
+            <linearGradient id="mtnGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffffff"/>
+                <stop offset="1" stop-color="#bcd0ff"/>
+            </linearGradient>
+        </defs>
+        <path pathLength="1" d="M586 271 L477 150 L461 168 L373 57 L312 4 L177 144 L141 126 L80 189 L57 187 L4 237 L68 198 L48 227 L142 148 L176 162 L309 26 L310 71 L326 66 L294 131 L339 83 L371 163 L393 156 L438 232 L414 175 L424 167 L472 209 L473 174 Z" fill="url(#mtnGrad)" stroke="#ffffff" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>
+    </svg>
+    <div class="mtn-fade"></div>
+</section>
+
+<script>
+    // Гори «згортаються» при прокрутці: головна вершина складається до горизонту,
+    // бокові рухаються повільніше (ефект глибини)
+    (function () {
+        var scene = document.getElementById('mountains');
+        if (!scene) return;
+        var main = scene.querySelector('.mtn-main');
+        var left = scene.querySelector('.mtn-left');
+        var right = scene.querySelector('.mtn-right');
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var ticking = false;
+
+        function clamp(v) { return Math.min(Math.max(v, 0), 1); }
+
+        function update() {
+            ticking = false;
+            var h = scene.offsetHeight;
+            var p = clamp(window.scrollY / (h * 0.85));       // головна
+            var pb = clamp((window.scrollY - h * 0.08) / (h * 1.1)); // бокові, трохи пізніше
+
+            main.style.transform = 'translateY(' + (p * 24) + 'px) scale(' + (1 - p * 0.1) + ',' + (1 - p * 0.93) + ')';
+            main.style.opacity = String(1 - p * 0.9);
+
+            left.style.transform = 'translateX(' + (-pb * 70) + 'px) scale(1,' + (1 - pb * 0.88) + ')';
+            left.style.opacity = String(0.28 * (1 - pb));
+
+            right.style.transform = 'scaleX(-1) translateX(' + (-pb * 70) + 'px) scale(1,' + (1 - pb * 0.88) + ')';
+            right.style.opacity = String(0.22 * (1 - pb));
+        }
+
+        function onScroll() {
+            if (!ticking) { ticking = true; requestAnimationFrame(update); }
+        }
+
+        if (!reduce) {
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll);
+            update();
+        }
+    })();
+</script>
+<!-- ===== КІНЕЦЬ БЛОКУ ГІР ===== -->
     <!-- 2. ГОЛОВНИЙ ЕКРАН (HERO) З АНІМАЦІЯМИ -->
-    <section class="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden alpin-logo-bg">
+    <section class="relative pt-8 pb-20 md:pt-12 md:pb-32 overflow-hidden alpin-logo-bg">
         <!-- Анімований фоновий світловий ефект -->
         <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-blue-600/20 blur-[140px] rounded-full pointer-events-none animate-blob"></div>
 
