@@ -575,7 +575,147 @@
             </div>
         </div>
     </section>
+<!-- ===== ДОРОГА З МАШИНОЮ (їде при прокрутці) ===== -->
+<style>
+    #road {
+        position: relative;
+        width: 100%;
+        height: 230px;
+        overflow: hidden;
+        pointer-events: none;
+    }
+    #road .road-mtn {
+        position: absolute; bottom: 62px;
+        width: 340px; height: auto;
+        opacity: 0.16; will-change: transform;
+    }
+    #road #roadMtnB { width: 300px; opacity: 0.1; }
+    #road .road-ground {
+        position: absolute; left: 0; right: 0; bottom: 0; height: 62px;
+        background: linear-gradient(to bottom, #0b1220, #070b14);
+        border-top: 1px solid rgba(148, 163, 184, 0.18);
+    }
+    #road .road-lines {
+        position: absolute; left: 0; right: 0; bottom: 22px; height: 4px;
+        background: repeating-linear-gradient(90deg, rgba(203, 213, 225, 0.7) 0 44px, transparent 44px 96px);
+        animation: roadMove 0.9s linear infinite;
+    }
+    @keyframes roadMove { from { background-position-x: 0; } to { background-position-x: -96px; } }
+    #road .road-car {
+        position: absolute; bottom: 40px; left: 0;
+        width: 340px; height: auto;
+        will-change: transform;
+    }
+    #road .car-bounce { animation: carBounce 0.5s ease-in-out infinite; }
+    @keyframes carBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1.6px); } }
+    #road .wheel {
+        transform-box: fill-box; transform-origin: center;
+        animation: wheelSpin 0.55s linear infinite;
+    }
+    @keyframes wheelSpin { to { transform: rotate(360deg); } }
+    #road .beam { animation: beamPulse 2.4s ease-in-out infinite; }
+    @keyframes beamPulse { 0%, 100% { opacity: 0.75; } 50% { opacity: 1; } }
+    @media (max-width: 640px) {
+        #road { height: 170px; }
+        #road .road-car { width: 230px; bottom: 34px; }
+        #road .road-mtn { width: 240px; bottom: 50px; }
+        #road #roadMtnB { width: 170px; }
+        #road .road-ground { height: 50px; }
+        #road .road-lines { bottom: 18px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        #road .road-lines, #road .car-bounce, #road .wheel, #road .beam { animation: none; }
+    }
+</style>
 
+<section id="road" aria-hidden="true">
+    <svg class="road-mtn" id="roadMtnA" viewBox="0 0 590 275" style="left: 6%;"><path d="M586 271 L477 150 L461 168 L373 57 L312 4 L177 144 L141 126 L80 189 L57 187 L4 237 L68 198 L48 227 L142 148 L176 162 L309 26 L310 71 L326 66 L294 131 L339 83 L371 163 L393 156 L438 232 L414 175 L424 167 L472 209 L473 174 Z" fill="#60a5fa"/></svg>
+    <svg class="road-mtn" id="roadMtnB" viewBox="0 0 590 275" style="left: 58%;"><path d="M586 271 L477 150 L461 168 L373 57 L312 4 L177 144 L141 126 L80 189 L57 187 L4 237 L68 198 L48 227 L142 148 L176 162 L309 26 L310 71 L326 66 L294 131 L339 83 L371 163 L393 156 L438 232 L414 175 L424 167 L472 209 L473 174 Z" fill="#60a5fa"/></svg>
+    <div class="road-ground"></div>
+    <div class="road-lines"></div>
+
+    <svg class="road-car" id="roadCar" viewBox="0 0 470 110">
+        <defs>
+            <linearGradient id="carBody" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#3b82f6"/>
+                <stop offset="1" stop-color="#1e3a8a"/>
+            </linearGradient>
+            <linearGradient id="carGlass" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#bfdbfe"/>
+                <stop offset="1" stop-color="#1e293b"/>
+            </linearGradient>
+            <linearGradient id="beamGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#fef9c3" stop-opacity="0.65"/>
+                <stop offset="1" stop-color="#fef9c3" stop-opacity="0"/>
+            </linearGradient>
+        </defs>
+
+        <ellipse cx="150" cy="96" rx="140" ry="6" fill="#000" opacity="0.45"/>
+        <polygon class="beam" points="292,62 465,30 465,96" fill="url(#beamGrad)"/>
+
+        <g class="car-bounce">
+            <path d="M10 76 L12 58 Q14 51 30 48 L75 43 Q96 22 132 20 L186 20 Q212 22 230 43 L270 49 Q290 53 292 67 L292 76 Z" fill="url(#carBody)"/>
+            <path d="M92 43 Q108 28 134 27 L151 27 L151 43 Z" fill="url(#carGlass)" opacity="0.9"/>
+            <path d="M159 27 L185 27 Q203 30 215 43 L159 43 Z" fill="url(#carGlass)" opacity="0.9"/>
+            <path d="M16 58 Q150 52 288 60" stroke="#93c5fd" stroke-width="1.2" fill="none" opacity="0.6"/>
+            <rect x="12" y="56" width="9" height="5" rx="2" fill="#ef4444"/>
+            <ellipse cx="287" cy="61" rx="6" ry="3.5" fill="#fef9c3"/>
+
+            <circle cx="70" cy="76" r="20" fill="#060911"/>
+            <circle cx="236" cy="76" r="20" fill="#060911"/>
+            <g class="wheel">
+                <circle cx="70" cy="76" r="15" fill="#0f172a" stroke="#475569" stroke-width="2"/>
+                <circle cx="70" cy="76" r="8" fill="#94a3b8"/>
+                <path d="M70 68 V84 M62 76 H78 M64.3 70.3 L75.7 81.7 M75.7 70.3 L64.3 81.7" stroke="#0f172a" stroke-width="1.6"/>
+            </g>
+            <g class="wheel">
+                <circle cx="236" cy="76" r="15" fill="#0f172a" stroke="#475569" stroke-width="2"/>
+                <circle cx="236" cy="76" r="8" fill="#94a3b8"/>
+                <path d="M236 68 V84 M228 76 H244 M230.3 70.3 L241.7 81.7 M241.7 70.3 L230.3 81.7" stroke="#0f172a" stroke-width="1.6"/>
+            </g>
+        </g>
+    </svg>
+</section>
+
+<script>
+    // Машина їде зліва направо, поки блок проходить через екран; гори рухаються повільніше
+    (function () {
+        var road = document.getElementById('road');
+        if (!road) return;
+        var car = document.getElementById('roadCar');
+        var mtnA = document.getElementById('roadMtnA');
+        var mtnB = document.getElementById('roadMtnB');
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var ticking = false;
+
+        function update() {
+            ticking = false;
+            var rect = road.getBoundingClientRect();
+            var vh = window.innerHeight;
+            var p = (vh - rect.top) / (vh + rect.height);
+            p = Math.min(Math.max(p, 0), 1);
+            var w = road.clientWidth;
+            var cw = car.getBoundingClientRect().width;
+            var x = -cw + p * (w + cw * 1.1);
+            car.style.transform = 'translateX(' + x + 'px)';
+            mtnA.style.transform = 'translateX(' + (-p * 50) + 'px)';
+            mtnB.style.transform = 'translateX(' + (-p * 30) + 'px)';
+        }
+
+        function onScroll() {
+            if (!ticking) { ticking = true; requestAnimationFrame(update); }
+        }
+
+        if (reduce) {
+            car.style.transform = 'translateX(' + (road.clientWidth / 2 - 170) + 'px)';
+        } else {
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll);
+            update();
+        }
+    })();
+</script>
+<!-- ===== КІНЕЦЬ БЛОКУ ДОРОГИ ===== -->
     <!-- 7. ФОРМА ЗАЯВКИ ТА ФУТЕР -->
     <section id="lead-form-section" class="py-24 relative overflow-hidden border-t border-slate-800/60 alpin-logo-bg">
         <div class="absolute bottom-0 right-1/4 w-[500px] h-[300px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none"></div>
