@@ -1,11 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('lead-form'); 
+    
     if (!form) return;
 
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
 
-        const SALESDRIVE_URL = 'https://alpinmotors.salesdrive.me/api/order/create/';
+        // Додаємо публічний проксі перед URL SalesDrive, щоб обійти блокування CORS у браузері
+        const SALESDRIVE_URL = 'https://corsproxy.io/?' + encodeURIComponent('https://alpinmotors.salesdrive.me/api/order/create/');
         const SALESDRIVE_API_KEY = 'z3Kk9Dly_C0Km8rNmbLLgvhNH7a19Gn-9gy8o4aqh5RMDwYt-NUuw1jx_JQqPuLSCfdrTn3BpX_t8hjfU-JVNiNByb_tZNB20ecB';
 
         const nameInput = form.querySelector('input[name="name"]');
@@ -43,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('Помилка:', error);
-            alert('Сталася помилка при відправці. Перевірте консоль.');
+            alert('Сталася помилка при відправці. Спробуйте ще раз пізніше.');
         } finally {
             if (submitBtn) submitBtn.disabled = false;
         }
