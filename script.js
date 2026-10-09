@@ -1,7 +1,7 @@
 // Відправка заявки з форми на сайті в SalesDrive
 const SALESDRIVE_HANDLER_URL = 'https://alpinmotors.salesdrive.me/handler/';
 // Ключ бази заявок: SalesDrive → Установки → Загальні налаштування і інтеграції → Інші сервіси → API
-const SALESDRIVE_FORM_KEY = 'ВСТАВТЕ_СЮДИ_КЛЮЧ_БАЗИ_ЗАЯВОК';
+const SALESDRIVE_FORM_KEY = 'z3Kk9Dly_C0Km8rNmbLLgvhNH7a19Gn-9gy8o4aqh5RMDwYt-NUuw1jx_JQqPuLSCfdrTn3BpX_t8hjfU-JVNiNByb_tZNB20ecB';
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('lead-form');
