@@ -491,12 +491,16 @@
                     </p>
                 </div>
 
-                <!-- Форма заявки -->
-                <form id="lead-form" class="space-y-6">
+                <!-- Форма заявки з атрибутами action та method для прямого надсилання в SalesDrive -->
+                <form id="lead-form" action="https://alpinmotors.salesdrive.me/api/order/create/" method="POST" class="space-y-6">
+                    <!-- Прихований ключ та назва джерела для CRM -->
+                    <input type="hidden" name="Form-Api-Key" value="z3Kk9Dly_C0Km8rNmbLLgvhNH7a19Gn-9gy8o4aqh5RMDwYt-NUuw1jx_JQqPuLSCfdrTn3BpX_t8hjfU-JVNiNByb_tZNB20ecB">
+                    <input type="hidden" name="form" value="Сайт Alpin Motors">
+
                     <div class="grid sm:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Ваше ім'я</label>
-                            <input type="text" name="name" required placeholder="Олександр" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 transition">
+                            <input type="text" name="fName" required placeholder="Олександр" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 transition">
                         </div>
                         <div>
                             <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Номер телефону</label>
@@ -506,7 +510,7 @@
 
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Бажаний напрямок / Марка авто</label>
-                        <input type="text" name="details" placeholder="Наприклад: BMW X5 зі США або Європи" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 transition">
+                        <input type="text" name="comment" placeholder="Наприклад: BMW X5 зі США або Європи" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 transition">
                     </div>
 
                     <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-4 rounded-xl text-xs uppercase tracking-widest transition shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2">
@@ -563,5 +567,5 @@
     <!-- Підключення файлу зі списком машин -->
     <script src="./cars.js"></script>
 
-    <!-- Підключення файлу логіки для SalesDrive -->
+    <!-- Підключення скрипта (можна залишити його порожнім, оскільки форма тепер надсилається через HTML action) -->
     <script src="./script.js"></script>
