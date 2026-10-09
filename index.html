@@ -29,7 +29,7 @@
             box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
         }
 
-        /* Прозорий фоновий логотип (водяний знак) */
+        
         .alpin-logo-bg {
             position: relative;
         }
@@ -50,7 +50,7 @@
             z-index: 1;
         }
 
-        /* Анімації */
+        
         @keyframes floatBlob {
             0%, 100% { transform: translate(0px, 0px) scale(1); }
             50% { transform: translate(20px, -20px) scale(1.05); }
@@ -114,7 +114,7 @@
     </style>
 </head>
 <body class="text-slate-100 alpin-bg antialiased selection:bg-blue-500 selection:text-white">
-    <!-- 1. ШАПКА САЙТУ (HEADER) -->
+    
     <header class="fixed top-0 left-0 right-0 z-50 bg-[#060911]/80 backdrop-blur-md border-b border-slate-800/80 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
@@ -157,7 +157,7 @@
             <a href="#route" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 border-b border-slate-800/50">МАРШРУТ</a>
         </div>
     </header>
-<!-- ===== ГОРИ МІЖ ШАПКОЮ ТА ГОЛОВНИМ ЕКРАНОМ ===== -->
+
 <style>
     #mountains {
         --mtn-w: min(760px, 92vw);
@@ -216,8 +216,7 @@
 </section>
 
 <script>
-    // Гори «згортаються» при прокрутці: головна вершина складається до горизонту,
-    // бокові рухаються повільніше (ефект глибини)
+    
     (function () {
         var scene = document.getElementById('mountains');
         if (!scene) return;
@@ -256,10 +255,10 @@
         }
     })();
 </script>
-<!-- ===== КІНЕЦЬ БЛОКУ ГІР ===== -->
-    <!-- 2. ГОЛОВНИЙ ЕКРАН (HERO) З АНІМАЦІЯМИ -->
+
+    
     <section class="relative pt-8 pb-20 md:pt-12 md:pb-32 overflow-hidden alpin-logo-bg">
-        <!-- Анімований фоновий світловий ефект -->
+        
         <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-blue-600/20 blur-[140px] rounded-full pointer-events-none animate-blob"></div>
 
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center animate-fade-in">
@@ -321,7 +320,7 @@
         </div>
     </section>
 
-    <!-- 3. ХТО МИ (ПОВНИЙ ЦИКЛ СПІВПРАЦІ) -->
+    
     <section id="about" class="py-16 border-t border-slate-800/60 bg-[#080d1a]/80 backdrop-blur-sm alpin-logo-bg">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
@@ -363,7 +362,7 @@
         </div>
     </section>
 
-    <!-- 4. ПОСЛУГИ ПІД КЛЮЧ -->
+    
     <section id="services" class="py-20 border-t border-slate-800/60 alpin-logo-bg">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
@@ -427,7 +426,7 @@
         </div>
     </section>
 
-    <!-- 5. КАТАЛОГ / АВТО ПІД ЗАМОВЛЕННЯ (ПОДІЛЕНЕ НА США ТА ЄВРОПУ) -->
+    
 <section id="catalog" class="py-20 bg-[#080d1a]/80 border-t border-slate-800/60 backdrop-blur-sm alpin-logo-bg">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
@@ -438,7 +437,7 @@
             </p>
         </div>
 
-        <!-- Кнопки перемикання регіонів та анімаційна машинка -->
+        
         <div class="flex flex-col items-center mb-12">
             <div class="flex flex-wrap justify-center gap-3 mb-6">
                 <button onclick="switchRegion('all')" data-region="all" class="region-btn bg-blue-600 border border-blue-500 text-white font-bold px-6 py-3 rounded-2xl text-xs uppercase tracking-wider transition shadow-lg shadow-blue-600/30">
@@ -452,17 +451,17 @@
                 </button>
             </div>
 
-            <!-- Контейнер анімації машинки -->
+            
             <div id="car-drive-anim" class="h-10 flex items-center justify-center text-blue-400 text-2xl overflow-hidden w-full max-w-xs">
                 <i class="fa-solid fa-car-side drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]"></i>
             </div>
         </div>
 
-        <!-- СЮДИ ДИНАМІЧНО ВСТАВЛЯЮТЬСЯ АВТО З cars.js -->
+        
         <div id="cars-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
     </div>
 </section>
-    <!-- 6. МАРШРУТ -->
+    
     <section id="route" class="py-24 relative overflow-hidden border-t border-slate-800/60 alpin-logo-bg">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <div class="inline-block px-6 py-2 mb-4 pill-white text-xs sm:text-sm font-black tracking-wider uppercase">
@@ -575,7 +574,7 @@
             </div>
         </div>
     </section>
-<!-- ===== ДОРОГА З МАШИНОЮ (їде при прокрутці) ===== -->
+
 <style>
     #road {
         position: relative;
@@ -678,7 +677,7 @@
 </section>
 
 <script>
-    // Машина їде зліва направо, поки блок проходить через екран; гори рухаються повільніше
+    
     (function () {
         var road = document.getElementById('road');
         if (!road) return;
@@ -715,8 +714,8 @@
         }
     })();
 </script>
-<!-- ===== КІНЕЦЬ БЛОКУ ДОРОГИ ===== -->
-    <!-- 7. ФОРМА ЗАЯВКИ ТА ФУТЕР -->
+
+    
     <section id="lead-form-section" class="py-24 relative overflow-hidden border-t border-slate-800/60 alpin-logo-bg">
         <div class="absolute bottom-0 right-1/4 w-[500px] h-[300px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none"></div>
 
@@ -730,7 +729,7 @@
                     </p>
                 </div>
 
-                <!-- Форма заявки: відправка в SalesDrive відбувається через script.js -->
+                
                 <form id="lead-form" class="space-y-6">
 
                     <div class="grid sm:grid-cols-2 gap-6">
@@ -758,7 +757,7 @@
         </div>
     </section>
 
-    <!-- ФУТЕР -->
+    
     <footer class="bg-[#04060b] border-t border-slate-900 py-12">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
             <div class="flex items-center gap-3">
@@ -777,9 +776,9 @@
         </div>
     </footer>
 
-    <!-- Закріплені іконки соцмереж у нижньому правому кутку -->
+    
     <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
-        <!-- Instagram -->
+        
         <a href="https://www.instagram.com/alpin_motorss?stkn=N2p4ZXJzNTBybXVp" target="_blank" rel="noopener noreferrer" 
            class="w-12 h-12 bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 hover:scale-110 text-white rounded-full flex items-center justify-center shadow-2xl transition duration-300 group relative"
            title="Instagram">
@@ -789,7 +788,7 @@
             </span>
         </a>
 
-        <!-- TikTok -->
+        
         <a href="https://www.tiktok.com/@alpin_motorss?_r=1&_t=ZS-9AMVithdM2f" target="_blank" rel="noopener noreferrer" 
            class="w-12 h-12 bg-black hover:bg-slate-900 hover:scale-110 text-white rounded-full flex items-center justify-center shadow-2xl border border-slate-800 transition duration-300 group relative"
            title="TikTok">
@@ -800,18 +799,16 @@
         </a>
     </div>
 
-    <!-- Підключення файлу зі списком машин -->
+    
     <script src="./cars.js"></script>
-<!-- ===== ЖИВІ АНІМАЦІЇ ALPIN MOTORS =====
-     Вставте цей блок один раз, прямо перед закриваючим </body> (після <script src="./script.js"></script>).
-     Містить: лічильники, поява блоків при прокрутці, нахил карток авто, корабель на хвилях, карту маршруту. -->
+
 <style>
-    /* --- Поява блоків --- */
+    
     .rv { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s cubic-bezier(.2,.7,.2,1); }
     .rv.rv-in { opacity: 1; transform: none; }
     .stat-num { font-variant-numeric: tabular-nums; }
 
-    /* --- Корабель --- */
+   
     #ocean { position: relative; width: 100%; height: 215px; overflow: hidden; pointer-events: none; margin-top: 24px; }
     #ocean .oc-label { position: absolute; top: 14px; width: max-content; white-space: nowrap; font-size: 11px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: rgba(148,163,184,.75); }
     #ocean .oc-label.l { left: 5%; } #ocean .oc-label.r { right: 5%; }
@@ -828,7 +825,7 @@
     @keyframes ocWaveB { from { transform: translateX(-180px); } to { transform: translateX(0); } }
     @media (max-width: 640px) { #ocean { height: 170px; } #ocean .oc-ship { width: 240px; bottom: 18px; } #ocean .oc-label { font-size: 9px; letter-spacing: .1em; top: 10px; } #ocean .oc-label.l { left: 4%; } #ocean .oc-label.r { right: 4%; } }
 
-    /* --- Карта маршруту --- */
+    
     #routeMap { padding: 40px 16px 8px; }
     #routeMap .map-eyebrow { text-align: center; color: #60a5fa; font-size: 12px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 14px; }
     #routeMap .map-panel {
@@ -849,11 +846,11 @@
 
 <script>
 (function () {
-    // ---------- Налаштування ----------
+    
     var CONFIG = {
-        anchor: '#route',   // перед якою секцією додати корабель і карту
-        ship: true,         // false — вимкнути корабель
-        map: true           // false — вимкнути карту
+        anchor: '#route',   
+        ship: true,         
+        map: true           
     };
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -902,7 +899,7 @@
         if (CONFIG.map) anchor.insertAdjacentHTML('beforebegin', mapHTML());
     }
 
-    // ---------- Корабель їде при прокрутці ----------
+    
     function initShip() {
         var sec = document.getElementById('ocean'), ship = document.getElementById('ocShip');
         if (!sec || !ship) return;
@@ -921,7 +918,7 @@
         update();
     }
 
-    // ---------- Поява блоків при прокрутці ----------
+    
     function heroSection() { var h = document.querySelector('h1'); return h ? h.closest('section') : null; }
 
     function initReveal() {
@@ -952,7 +949,7 @@
         nodes.forEach(function (n) { io.observe(n); });
     }
 
-    // ---------- Лічильники в головному екрані ----------
+    
     function initCounters() {
         var hero = heroSection();
         if (reduce || !hero || !('IntersectionObserver' in window)) return;
@@ -980,7 +977,7 @@
         els.forEach(function (el) { io.observe(el); });
     }
 
-    // ---------- Нахил карток авто ----------
+    
     function initTilt() {
         if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
         var box = document.getElementById('cars-container');
@@ -1009,6 +1006,6 @@
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();
 </script>
-<!-- ===== КІНЕЦЬ БЛОКУ АНІМАЦІЙ ===== -->
-    <!-- Відправка форми в SalesDrive -->
+
+    
     <script src="./script.js"></script>
