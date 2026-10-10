@@ -8,7 +8,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
-<style>
+    <style>
+/* ============================================================
+   СТИЛІ САЙТУ
+   1. Основні   2. Гори під шапкою   3. Дорога з машиною   4. Живі анімації (лічильники, поява блоків, корабель, карта)
+   ============================================================ */
+
+/* ---------- 1. ОСНОВНІ СТИЛІ ---------- */
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: #060911;
@@ -111,54 +117,8 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.3);
         }
-    </style>
-</head>
-<body class="text-slate-100 alpin-bg antialiased selection:bg-blue-500 selection:text-white">
-    
-    <header class="fixed top-0 left-0 right-0 z-50 bg-[#060911]/80 backdrop-blur-md border-b border-slate-800/80 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                
-                <a href="#" class="flex items-center gap-4 group">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-700/80 group-hover:border-blue-500 flex items-center justify-center transition duration-300 shadow-xl overflow-hidden p-0">
-                        <img src="./logo.svg" alt="ALPIN Logo" class="w-full h-full object-contain scale-[3.5] group-hover:scale-[3.8] transition duration-300">
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-xl font-black text-white tracking-wider leading-none uppercase">ALPIN</span>
-                        <span class="text-xs font-bold text-blue-400 tracking-[0.25em] leading-tight uppercase mt-1">MOTORS</span>
-                    </div>
-                </a>
 
-                <nav class="hidden md:flex items-center space-x-8">
-                    <a href="#about" class="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 transition duration-200">ХТО МИ</a>
-                    <a href="#services" class="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 transition duration-200">ПОСЛУГИ</a>
-                    <a href="#catalog" class="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 transition duration-200">АВТО ПІД ЗАМОВЛЕННЯ</a>
-                    <a href="#route" class="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 transition duration-200">МАРШРУТ</a>
-                </nav>
-
-                <div class="flex items-center gap-4">
-                    <a href="#lead-form-section" class="hidden sm:inline-flex items-center gap-2.5 bg-blue-600 hover:bg-blue-500 text-white font-extrabold px-6 py-2.5 rounded-full text-xs uppercase tracking-wider transition duration-300 shadow-lg shadow-blue-600/30 hover:scale-105 active:scale-95">
-                        <i class="fa-solid fa-paper-plane text-xs"></i>
-                        <span>Залишити заявку</span>
-                    </a>
-
-                    <button id="mobile-menu-btn" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="md:hidden text-slate-300 hover:text-white focus:outline-none p-2">
-                        <i class="fa-solid fa-bars text-xl"></i>
-                    </button>
-                </div>
-
-            </div>
-        </div>
-
-        <div id="mobile-menu" class="hidden md:hidden bg-[#060911] border-b border-slate-800 px-4 pt-3 pb-6 space-y-3">
-            <a href="#about" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 border-b border-slate-800/50">ХТО МИ</a>
-            <a href="#services" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 border-b border-slate-800/50">ПОСЛУГИ</a>
-            <a href="#catalog" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 border-b border-slate-800/50">АВТО ПІД ЗАМОВЛЕННЯ</a>
-            <a href="#route" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 border-b border-slate-800/50">МАРШРУТ</a>
-        </div>
-    </header>
-
-<style>
+/* ---------- 2. ГОРИ ПІД ШАПКОЮ ---------- */
     #mountains {
         --mtn-w: min(760px, 92vw);
         position: relative;
@@ -194,8 +154,175 @@
     @media (prefers-reduced-motion: reduce) {
         #mountains .mtn-main path { animation: none; fill-opacity: 1; stroke-dashoffset: 0; }
     }
-</style>
 
+/* ---------- 3. ДОРОГА З МАШИНОЮ ---------- */
+    #road {
+        position: relative;
+        width: 100%;
+        height: 230px;
+        overflow: hidden;
+        pointer-events: none;
+    }
+    #road .road-mtn {
+        position: absolute; bottom: 62px;
+        width: 340px; height: auto;
+        opacity: 0.16; will-change: transform;
+    }
+    #road #roadMtnB { width: 300px; opacity: 0.1; }
+    #road .road-ground {
+        position: absolute; left: 0; right: 0; bottom: 0; height: 62px;
+        background: linear-gradient(to bottom, #0b1220, #070b14);
+        border-top: 1px solid rgba(148, 163, 184, 0.18);
+    }
+    #road .road-lines {
+        position: absolute; left: 0; right: 0; bottom: 22px; height: 4px;
+        background: repeating-linear-gradient(90deg, rgba(203, 213, 225, 0.7) 0 44px, transparent 44px 96px);
+        animation: roadMove 0.9s linear infinite;
+    }
+    @keyframes roadMove { from { background-position-x: 0; } to { background-position-x: -96px; } }
+    #road .road-car {
+        position: absolute; bottom: 40px; left: 0;
+        width: 340px; height: auto;
+        will-change: transform;
+    }
+    #road .car-bounce { animation: carBounce 0.5s ease-in-out infinite; }
+    @keyframes carBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1.6px); } }
+    #road .wheel {
+        transform-box: fill-box; transform-origin: center;
+        animation: wheelSpin 0.55s linear infinite;
+    }
+    @keyframes wheelSpin { to { transform: rotate(360deg); } }
+    #road .beam { animation: beamPulse 2.4s ease-in-out infinite; }
+    @keyframes beamPulse { 0%, 100% { opacity: 0.75; } 50% { opacity: 1; } }
+    @media (max-width: 640px) {
+        #road { height: 170px; }
+        #road .road-car { width: 230px; bottom: 34px; }
+        #road .road-mtn { width: 240px; bottom: 50px; }
+        #road #roadMtnB { width: 170px; }
+        #road .road-ground { height: 50px; }
+        #road .road-lines { bottom: 18px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        #road .road-lines, #road .car-bounce, #road .wheel, #road .beam { animation: none; }
+    }
+
+/* ---------- 4. ЖИВІ АНІМАЦІЇ ---------- */
+    
+    .rv { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s cubic-bezier(.2,.7,.2,1); }
+    .rv.rv-in { opacity: 1; transform: none; }
+    .stat-num { font-variant-numeric: tabular-nums; }
+
+   
+    #ocean { position: relative; width: 100%; height: 215px; overflow: hidden; pointer-events: none; margin-top: 24px; }
+    #ocean .oc-label { position: absolute; top: 14px; width: max-content; white-space: nowrap; font-size: 11px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: rgba(148,163,184,.75); }
+    #ocean .oc-label.l { left: 5%; } #ocean .oc-label.r { right: 5%; }
+    #ocean .oc-ship { position: absolute; bottom: 24px; left: 0; width: 360px; height: auto; will-change: transform; }
+    #ocean .oc-sway { transform-box: fill-box; transform-origin: 50% 100%; animation: ocSway 4.2s ease-in-out infinite; }
+    @keyframes ocSway { 0%,100% { transform: rotate(-1.1deg) translateY(0); } 50% { transform: rotate(1.1deg) translateY(3px); } }
+    #ocean .oc-smoke { transform-box: fill-box; transform-origin: center; animation: ocSmoke 3s ease-out infinite; opacity: 0; }
+    #ocean .oc-smoke:nth-of-type(2) { animation-delay: 1s; } #ocean .oc-smoke:nth-of-type(3) { animation-delay: 2s; }
+    @keyframes ocSmoke { 0% { transform: translate(0,0) scale(.5); opacity: .55; } 100% { transform: translate(-26px,-26px) scale(1.6); opacity: 0; } }
+    #ocean .oc-wave { position: absolute; left: 0; bottom: 0; height: auto; }
+    #ocean .oc-wave.back { animation: ocWaveA 12s linear infinite; }
+    #ocean .oc-wave.front { animation: ocWaveB 7s linear infinite; }
+    @keyframes ocWaveA { from { transform: translateX(0); } to { transform: translateX(-240px); } }
+    @keyframes ocWaveB { from { transform: translateX(-180px); } to { transform: translateX(0); } }
+    @media (max-width: 640px) { #ocean { height: 170px; } #ocean .oc-ship { width: 240px; bottom: 18px; } #ocean .oc-label { font-size: 9px; letter-spacing: .1em; top: 10px; } #ocean .oc-label.l { left: 4%; } #ocean .oc-label.r { right: 4%; } }
+
+    
+    #routeMap { padding: 40px 16px 8px; }
+    #routeMap .map-eyebrow { text-align: center; color: #60a5fa; font-size: 12px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 14px; }
+    #routeMap .map-panel {
+        max-width: 960px; margin: 0 auto; border: 1px solid rgba(30,41,59,.9); border-radius: 24px; overflow: hidden;
+        background: radial-gradient(ellipse 70% 80% at 50% 40%, rgba(30,58,138,.28), rgba(15,23,42,.65));
+    }
+    #routeMap svg { display: block; width: 100%; height: auto; }
+    #routeMap .map-dots { fill: none; stroke: rgba(148,163,184,.42); stroke-width: 3.2; stroke-linecap: round; animation: mapShimmer 6s ease-in-out infinite; }
+    @keyframes mapShimmer { 0%,100% { opacity: .7; } 50% { opacity: 1; } }
+    #routeMap .map-line { fill: none; stroke: #60a5fa; stroke-width: 2; stroke-dasharray: 3 9; stroke-linecap: round; animation: mapFlow 1.2s linear infinite; }
+    @keyframes mapFlow { to { stroke-dashoffset: -24; } }
+    #routeMap text { font-family: 'Montserrat', sans-serif; font-weight: 800; fill: #f1f5f9; letter-spacing: .08em; paint-order: stroke; stroke: #0b1220; stroke-width: 5px; stroke-linejoin: round; }
+
+    @media (max-width: 640px) { #routeMap { padding: 28px 10px 4px; } #routeMap text { font-size: 25px; stroke-width: 7px; } }
+    @media (prefers-reduced-motion: reduce) { #routeMap .map-dots { animation: none; } }
+
+    @media (prefers-reduced-motion: reduce) {
+        .rv { opacity: 1; transform: none; transition: none; }
+        #ocean .oc-sway, #ocean .oc-smoke, #ocean .oc-wave, #routeMap .map-line { animation: none; }
+    }
+/* ---------- 5. ВІДЕО-ВІДГУКИ ---------- */
+    #reviews .rev-wrap { position: relative; }
+    #reviews .rev-track { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 2px 14px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    #reviews .rev-track::-webkit-scrollbar { display: none; }
+    #reviews .rev-card { flex: 0 0 auto; width: min(72vw, 260px); margin: 0; scroll-snap-align: center; }
+    #reviews .rev-card.rev-wide { width: min(86vw, 420px); }
+    #reviews .rev-card:first-child { margin-left: auto; }
+    #reviews .rev-card:last-child { margin-right: auto; }
+    #reviews .rev-media { position: relative; aspect-ratio: 9 / 16; border-radius: 20px; overflow: hidden; background: #04060b; border: 1px solid rgba(30,41,59,.9); box-shadow: 0 18px 40px -22px rgba(0,0,0,.8); transition: border-color .3s ease, transform .3s ease; }
+    #reviews .rev-card.rev-wide .rev-media { aspect-ratio: 16 / 9; }
+    #reviews .rev-card:hover .rev-media { border-color: rgba(59,130,246,.6); transform: translateY(-4px); }
+    #reviews .rev-media video { display: block; width: 100%; height: 100%; object-fit: cover; background: #04060b; }
+    #reviews .rev-play { position: absolute; inset: 0; margin: auto; width: 64px; height: 64px; border: 0; border-radius: 50%; background: rgba(37,99,235,.92); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; animation: revPulse 2.4s ease-out infinite; transition: transform .2s ease; }
+    #reviews .rev-play:hover { transform: scale(1.1); }
+    #reviews .rev-play svg { width: 26px; height: 26px; margin-left: 3px; }
+    #reviews .rev-card.started .rev-play { display: none; }
+    @keyframes revPulse { 0% { box-shadow: 0 0 0 0 rgba(59,130,246,.55); } 100% { box-shadow: 0 0 0 22px rgba(59,130,246,0); } }
+    #reviews .rev-cap { padding: 10px 4px 0; display: flex; flex-direction: column; gap: 2px; }
+    #reviews .rev-cap strong { color: #fff; font-size: 14px; font-weight: 800; }
+    #reviews .rev-cap span { color: #94a3b8; font-size: 12px; font-weight: 600; }
+    #reviews .rev-nav { position: absolute; top: 42%; z-index: 3; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(51,65,85,.9); background: rgba(15,23,42,.92); color: #e2e8f0; font-size: 22px; line-height: 1; cursor: pointer; transition: background .2s ease, opacity .2s ease; }
+    #reviews .rev-nav:hover { background: #2563eb; }
+    #reviews .rev-nav.prev { left: -6px; } #reviews .rev-nav.next { right: -6px; }
+    #reviews .rev-nav[disabled] { opacity: 0; pointer-events: none; }
+    @media (max-width: 640px) { #reviews .rev-nav { display: none; } }
+    @media (prefers-reduced-motion: reduce) { #reviews .rev-play { animation: none; } #reviews .rev-media { transition: none; } }
+    </style>
+</head>
+<body class="text-slate-100 alpin-bg antialiased selection:bg-blue-500 selection:text-white">
+
+    <!-- ===== ШАПКА САЙТУ ===== -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#060911]/80 backdrop-blur-md border-b border-slate-800/80 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <a href="#" class="flex items-center gap-4 group">
+                    <img src="./logo-badge.webp" alt="ALPIN MOTORS" width="64" height="64" class="w-14 h-14 sm:w-16 sm:h-16 rounded-full ring-1 ring-slate-700/80 group-hover:ring-blue-500 shadow-xl shadow-blue-900/40 transition duration-300 group-hover:scale-105">
+                    <div class="flex flex-col">
+                        <span class="text-xl font-black text-white tracking-wider leading-none uppercase">ALPIN</span>
+                        <span class="text-xs font-bold text-blue-400 tracking-[0.25em] leading-tight uppercase mt-1">MOTORS</span>
+                    </div>
+                </a>
+
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 transition duration-200">ХТО МИ</a>
+                    <a href="#services" class="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 transition duration-200">ПОСЛУГИ</a>
+                    <a href="#catalog" class="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 transition duration-200">АВТО ПІД ЗАМОВЛЕННЯ</a>
+                    <a href="#route" class="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 transition duration-200">МАРШРУТ</a>
+                </nav>
+
+                <div class="flex items-center gap-4">
+                    <a href="#lead-form-section" class="hidden sm:inline-flex items-center gap-2.5 bg-blue-600 hover:bg-blue-500 text-white font-extrabold px-6 py-2.5 rounded-full text-xs uppercase tracking-wider transition duration-300 shadow-lg shadow-blue-600/30 hover:scale-105 active:scale-95">
+                        <i class="fa-solid fa-paper-plane text-xs"></i>
+                        <span>Залишити заявку</span>
+                    </a>
+
+                    <button id="mobile-menu-btn" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="md:hidden text-slate-300 hover:text-white focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-[#060911] border-b border-slate-800 px-4 pt-3 pb-6 space-y-3">
+            <a href="#about" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 border-b border-slate-800/50">ХТО МИ</a>
+            <a href="#services" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 border-b border-slate-800/50">ПОСЛУГИ</a>
+            <a href="#catalog" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 border-b border-slate-800/50">АВТО ПІД ЗАМОВЛЕННЯ</a>
+            <a href="#route" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-blue-400 border-b border-slate-800/50">МАРШРУТ</a>
+        </div>
+    </header>
+
+    <!-- ===== ГОРИ МІЖ ШАПКОЮ ТА ГОЛОВНИМ ЕКРАНОМ ===== -->
 <section id="mountains" aria-hidden="true">
     <svg class="mtn mtn-left" viewBox="0 0 590 275" preserveAspectRatio="xMidYMax meet">
         <path d="M586 271 L477 150 L461 168 L373 57 L312 4 L177 144 L141 126 L80 189 L57 187 L4 237 L68 198 L48 227 L142 148 L176 162 L309 26 L310 71 L326 66 L294 131 L339 83 L371 163 L393 156 L438 232 L414 175 L424 167 L472 209 L473 174 Z" fill="#93b4ff"/>
@@ -215,48 +342,7 @@
     <div class="mtn-fade"></div>
 </section>
 
-<script>
-    
-    (function () {
-        var scene = document.getElementById('mountains');
-        if (!scene) return;
-        var main = scene.querySelector('.mtn-main');
-        var left = scene.querySelector('.mtn-left');
-        var right = scene.querySelector('.mtn-right');
-        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        var ticking = false;
-
-        function clamp(v) { return Math.min(Math.max(v, 0), 1); }
-
-        function update() {
-            ticking = false;
-            var h = scene.offsetHeight;
-            var p = clamp(window.scrollY / (h * 0.85));       // головна
-            var pb = clamp((window.scrollY - h * 0.08) / (h * 1.1)); // бокові, трохи пізніше
-
-            main.style.transform = 'translateY(' + (p * 24) + 'px) scale(' + (1 - p * 0.1) + ',' + (1 - p * 0.93) + ')';
-            main.style.opacity = String(1 - p * 0.9);
-
-            left.style.transform = 'translateX(' + (-pb * 70) + 'px) scale(1,' + (1 - pb * 0.88) + ')';
-            left.style.opacity = String(0.28 * (1 - pb));
-
-            right.style.transform = 'scaleX(-1) translateX(' + (-pb * 70) + 'px) scale(1,' + (1 - pb * 0.88) + ')';
-            right.style.opacity = String(0.22 * (1 - pb));
-        }
-
-        function onScroll() {
-            if (!ticking) { ticking = true; requestAnimationFrame(update); }
-        }
-
-        if (!reduce) {
-            window.addEventListener('scroll', onScroll, { passive: true });
-            window.addEventListener('resize', onScroll);
-            update();
-        }
-    })();
-</script>
-
-    
+    <!-- ===== ГОЛОВНИЙ ЕКРАН ===== -->
     <section class="relative pt-8 pb-20 md:pt-12 md:pb-32 overflow-hidden alpin-logo-bg">
         
         <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-blue-600/20 blur-[140px] rounded-full pointer-events-none animate-blob"></div>
@@ -320,7 +406,7 @@
         </div>
     </section>
 
-    
+    <!-- ===== ХТО МИ ===== -->
     <section id="about" class="py-16 border-t border-slate-800/60 bg-[#080d1a]/80 backdrop-blur-sm alpin-logo-bg">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
@@ -362,7 +448,7 @@
         </div>
     </section>
 
-    
+    <!-- ===== ПОСЛУГИ ===== -->
     <section id="services" class="py-20 border-t border-slate-800/60 alpin-logo-bg">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
@@ -426,7 +512,7 @@
         </div>
     </section>
 
-    
+    <!-- ===== АВТО ПІД ЗАМОВЛЕННЯ (каталог) ===== -->
 <section id="catalog" class="py-20 bg-[#080d1a]/80 border-t border-slate-800/60 backdrop-blur-sm alpin-logo-bg">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
@@ -461,7 +547,9 @@
         <div id="cars-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
     </div>
 </section>
-    
+
+    <!-- ===== МАРШРУТ ===== -->
+    <!-- Перед цією секцією скрипт додає корабель і карту світу -->
     <section id="route" class="py-24 relative overflow-hidden border-t border-slate-800/60 alpin-logo-bg">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <div class="inline-block px-6 py-2 mb-4 pill-white text-xs sm:text-sm font-black tracking-wider uppercase">
@@ -575,58 +663,24 @@
         </div>
     </section>
 
-<style>
-    #road {
-        position: relative;
-        width: 100%;
-        height: 230px;
-        overflow: hidden;
-        pointer-events: none;
-    }
-    #road .road-mtn {
-        position: absolute; bottom: 62px;
-        width: 340px; height: auto;
-        opacity: 0.16; will-change: transform;
-    }
-    #road #roadMtnB { width: 300px; opacity: 0.1; }
-    #road .road-ground {
-        position: absolute; left: 0; right: 0; bottom: 0; height: 62px;
-        background: linear-gradient(to bottom, #0b1220, #070b14);
-        border-top: 1px solid rgba(148, 163, 184, 0.18);
-    }
-    #road .road-lines {
-        position: absolute; left: 0; right: 0; bottom: 22px; height: 4px;
-        background: repeating-linear-gradient(90deg, rgba(203, 213, 225, 0.7) 0 44px, transparent 44px 96px);
-        animation: roadMove 0.9s linear infinite;
-    }
-    @keyframes roadMove { from { background-position-x: 0; } to { background-position-x: -96px; } }
-    #road .road-car {
-        position: absolute; bottom: 40px; left: 0;
-        width: 340px; height: auto;
-        will-change: transform;
-    }
-    #road .car-bounce { animation: carBounce 0.5s ease-in-out infinite; }
-    @keyframes carBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1.6px); } }
-    #road .wheel {
-        transform-box: fill-box; transform-origin: center;
-        animation: wheelSpin 0.55s linear infinite;
-    }
-    @keyframes wheelSpin { to { transform: rotate(360deg); } }
-    #road .beam { animation: beamPulse 2.4s ease-in-out infinite; }
-    @keyframes beamPulse { 0%, 100% { opacity: 0.75; } 50% { opacity: 1; } }
-    @media (max-width: 640px) {
-        #road { height: 170px; }
-        #road .road-car { width: 230px; bottom: 34px; }
-        #road .road-mtn { width: 240px; bottom: 50px; }
-        #road #roadMtnB { width: 170px; }
-        #road .road-ground { height: 50px; }
-        #road .road-lines { bottom: 18px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-        #road .road-lines, #road .car-bounce, #road .wheel, #road .beam { animation: none; }
-    }
-</style>
+    <!-- ===== ВІДЕО-ВІДГУКИ ===== -->
+    <!-- Секція з'являється сама, коли в скрипті нижче (REVIEWS) є хоча б один відгук -->
+    <section id="reviews" class="py-20 border-t border-slate-800/60 bg-[#080d1a]/80 backdrop-blur-sm alpin-logo-bg" hidden>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <span class="text-blue-400 text-xs font-bold uppercase tracking-widest block mb-2">// ВІДГУКИ</span>
+                <h2 class="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight mb-3">ВІДГУКИ КЛІЄНТІВ</h2>
+                <p class="text-xs sm:text-sm text-slate-400 max-w-lg mx-auto">Відео від клієнтів, які вже отримали своє авто.</p>
+            </div>
+            <div class="rev-wrap">
+                <button type="button" class="rev-nav prev" aria-label="Попередні відгуки">&#8249;</button>
+                <div class="rev-track" id="reviews-track"></div>
+                <button type="button" class="rev-nav next" aria-label="Наступні відгуки">&#8250;</button>
+            </div>
+        </div>
+    </section>
 
+    <!-- ===== ДОРОГА З МАШИНОЮ ===== -->
 <section id="road" aria-hidden="true">
     <svg class="road-mtn" id="roadMtnA" viewBox="0 0 590 275" style="left: 6%;"><path d="M586 271 L477 150 L461 168 L373 57 L312 4 L177 144 L141 126 L80 189 L57 187 L4 237 L68 198 L48 227 L142 148 L176 162 L309 26 L310 71 L326 66 L294 131 L339 83 L371 163 L393 156 L438 232 L414 175 L424 167 L472 209 L473 174 Z" fill="#60a5fa"/></svg>
     <svg class="road-mtn" id="roadMtnB" viewBox="0 0 590 275" style="left: 58%;"><path d="M586 271 L477 150 L461 168 L373 57 L312 4 L177 144 L141 126 L80 189 L57 187 L4 237 L68 198 L48 227 L142 148 L176 162 L309 26 L310 71 L326 66 L294 131 L339 83 L371 163 L393 156 L438 232 L414 175 L424 167 L472 209 L473 174 Z" fill="#60a5fa"/></svg>
@@ -676,46 +730,7 @@
     </svg>
 </section>
 
-<script>
-    
-    (function () {
-        var road = document.getElementById('road');
-        if (!road) return;
-        var car = document.getElementById('roadCar');
-        var mtnA = document.getElementById('roadMtnA');
-        var mtnB = document.getElementById('roadMtnB');
-        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        var ticking = false;
-
-        function update() {
-            ticking = false;
-            var rect = road.getBoundingClientRect();
-            var vh = window.innerHeight;
-            var p = (vh - rect.top) / (vh + rect.height);
-            p = Math.min(Math.max(p, 0), 1);
-            var w = road.clientWidth;
-            var cw = car.getBoundingClientRect().width;
-            var x = -cw + p * (w + cw * 1.1);
-            car.style.transform = 'translateX(' + x + 'px)';
-            mtnA.style.transform = 'translateX(' + (-p * 50) + 'px)';
-            mtnB.style.transform = 'translateX(' + (-p * 30) + 'px)';
-        }
-
-        function onScroll() {
-            if (!ticking) { ticking = true; requestAnimationFrame(update); }
-        }
-
-        if (reduce) {
-            car.style.transform = 'translateX(' + (road.clientWidth / 2 - 170) + 'px)';
-        } else {
-            window.addEventListener('scroll', onScroll, { passive: true });
-            window.addEventListener('resize', onScroll);
-            update();
-        }
-    })();
-</script>
-
-    
+    <!-- ===== ФОРМА ЗАЯВКИ ===== -->
     <section id="lead-form-section" class="py-24 relative overflow-hidden border-t border-slate-800/60 alpin-logo-bg">
         <div class="absolute bottom-0 right-1/4 w-[500px] h-[300px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none"></div>
 
@@ -757,13 +772,11 @@
         </div>
     </section>
 
-    
+    <!-- ===== ФУТЕР ===== -->
     <footer class="bg-[#04060b] border-t border-slate-900 py-12">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center overflow-hidden p-0">
-                    <img src="./logo.svg" alt="ALPIN Logo" class="w-full h-full object-contain scale-[3.5]">
-                </div>
+                <img src="./logo-badge.webp" alt="ALPIN MOTORS" width="40" height="40" class="w-10 h-10 rounded-full ring-1 ring-slate-800">
                 <div class="flex flex-col">
                     <span class="text-sm font-black text-white tracking-wider uppercase">ALPIN MOTORS</span>
                     <span class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Авто з США та Європи</span>
@@ -776,7 +789,7 @@
         </div>
     </footer>
 
-    
+    <!-- ===== СОЦМЕРЕЖІ (закріплені іконки) ===== -->
     <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
         
         <a href="https://www.instagram.com/alpin_motorss?stkn=N2p4ZXJzNTBybXVp" target="_blank" rel="noopener noreferrer" 
@@ -799,52 +812,187 @@
         </a>
     </div>
 
-    
+    <!-- ===== СКРИПТИ ===== -->
+    <!-- Список машин і каталог -->
     <script src="./cars.js"></script>
 
-<style>
+    <script>
+/* ---------- Гори: згортаються при прокрутці ---------- */
     
-    .rv { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s cubic-bezier(.2,.7,.2,1); }
-    .rv.rv-in { opacity: 1; transform: none; }
-    .stat-num { font-variant-numeric: tabular-nums; }
+    (function () {
+        var scene = document.getElementById('mountains');
+        if (!scene) return;
+        var main = scene.querySelector('.mtn-main');
+        var left = scene.querySelector('.mtn-left');
+        var right = scene.querySelector('.mtn-right');
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var ticking = false;
 
-   
-    #ocean { position: relative; width: 100%; height: 215px; overflow: hidden; pointer-events: none; margin-top: 24px; }
-    #ocean .oc-label { position: absolute; top: 14px; width: max-content; white-space: nowrap; font-size: 11px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: rgba(148,163,184,.75); }
-    #ocean .oc-label.l { left: 5%; } #ocean .oc-label.r { right: 5%; }
-    #ocean .oc-ship { position: absolute; bottom: 24px; left: 0; width: 360px; height: auto; will-change: transform; }
-    #ocean .oc-sway { transform-box: fill-box; transform-origin: 50% 100%; animation: ocSway 4.2s ease-in-out infinite; }
-    @keyframes ocSway { 0%,100% { transform: rotate(-1.1deg) translateY(0); } 50% { transform: rotate(1.1deg) translateY(3px); } }
-    #ocean .oc-smoke { transform-box: fill-box; transform-origin: center; animation: ocSmoke 3s ease-out infinite; opacity: 0; }
-    #ocean .oc-smoke:nth-of-type(2) { animation-delay: 1s; } #ocean .oc-smoke:nth-of-type(3) { animation-delay: 2s; }
-    @keyframes ocSmoke { 0% { transform: translate(0,0) scale(.5); opacity: .55; } 100% { transform: translate(-26px,-26px) scale(1.6); opacity: 0; } }
-    #ocean .oc-wave { position: absolute; left: 0; bottom: 0; height: auto; }
-    #ocean .oc-wave.back { animation: ocWaveA 12s linear infinite; }
-    #ocean .oc-wave.front { animation: ocWaveB 7s linear infinite; }
-    @keyframes ocWaveA { from { transform: translateX(0); } to { transform: translateX(-240px); } }
-    @keyframes ocWaveB { from { transform: translateX(-180px); } to { transform: translateX(0); } }
-    @media (max-width: 640px) { #ocean { height: 170px; } #ocean .oc-ship { width: 240px; bottom: 18px; } #ocean .oc-label { font-size: 9px; letter-spacing: .1em; top: 10px; } #ocean .oc-label.l { left: 4%; } #ocean .oc-label.r { right: 4%; } }
+        function clamp(v) { return Math.min(Math.max(v, 0), 1); }
 
+        function update() {
+            ticking = false;
+            var h = scene.offsetHeight;
+            var p = clamp(window.scrollY / (h * 0.85));       // головна
+            var pb = clamp((window.scrollY - h * 0.08) / (h * 1.1)); // бокові, трохи пізніше
+
+            main.style.transform = 'translateY(' + (p * 24) + 'px) scale(' + (1 - p * 0.1) + ',' + (1 - p * 0.93) + ')';
+            main.style.opacity = String(1 - p * 0.9);
+
+            left.style.transform = 'translateX(' + (-pb * 70) + 'px) scale(1,' + (1 - pb * 0.88) + ')';
+            left.style.opacity = String(0.28 * (1 - pb));
+
+            right.style.transform = 'scaleX(-1) translateX(' + (-pb * 70) + 'px) scale(1,' + (1 - pb * 0.88) + ')';
+            right.style.opacity = String(0.22 * (1 - pb));
+        }
+
+        function onScroll() {
+            if (!ticking) { ticking = true; requestAnimationFrame(update); }
+        }
+
+        if (!reduce) {
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll);
+            update();
+        }
+    })();
+
+/* ---------- Дорога: машина їде при прокрутці ---------- */
     
-    #routeMap { padding: 40px 16px 8px; }
-    #routeMap .map-eyebrow { text-align: center; color: #60a5fa; font-size: 12px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 14px; }
-    #routeMap .map-panel {
-        max-width: 960px; margin: 0 auto; border: 1px solid rgba(30,41,59,.9); border-radius: 24px; overflow: hidden;
-        background-color: rgba(15,23,42,.6);
-        background-image: radial-gradient(rgba(148,163,184,.2) 1px, transparent 1.6px); background-size: 22px 22px;
-    }
-    #routeMap svg { display: block; width: 100%; height: auto; }
-    #routeMap .map-line { fill: none; stroke: #60a5fa; stroke-width: 2; stroke-dasharray: 3 9; stroke-linecap: round; animation: mapFlow 1.2s linear infinite; }
-    @keyframes mapFlow { to { stroke-dashoffset: -24; } }
-    #routeMap text { font-family: 'Montserrat', sans-serif; font-weight: 800; fill: #e2e8f0; letter-spacing: .08em; }
+    (function () {
+        var road = document.getElementById('road');
+        if (!road) return;
+        var car = document.getElementById('roadCar');
+        var mtnA = document.getElementById('roadMtnA');
+        var mtnB = document.getElementById('roadMtnB');
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var ticking = false;
 
-    @media (prefers-reduced-motion: reduce) {
-        .rv { opacity: 1; transform: none; transition: none; }
-        #ocean .oc-sway, #ocean .oc-smoke, #ocean .oc-wave, #routeMap .map-line { animation: none; }
-    }
-</style>
+        function update() {
+            ticking = false;
+            var rect = road.getBoundingClientRect();
+            var vh = window.innerHeight;
+            var p = (vh - rect.top) / (vh + rect.height);
+            p = Math.min(Math.max(p, 0), 1);
+            var w = road.clientWidth;
+            var cw = car.getBoundingClientRect().width;
+            var x = -cw + p * (w + cw * 1.1);
+            car.style.transform = 'translateX(' + x + 'px)';
+            mtnA.style.transform = 'translateX(' + (-p * 50) + 'px)';
+            mtnB.style.transform = 'translateX(' + (-p * 30) + 'px)';
+        }
 
-<script>
+        function onScroll() {
+            if (!ticking) { ticking = true; requestAnimationFrame(update); }
+        }
+
+        if (reduce) {
+            car.style.transform = 'translateX(' + (road.clientWidth / 2 - 170) + 'px)';
+        } else {
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll);
+            update();
+        }
+    })();
+
+/* ---------- Відео-відгуки ---------- */
+(function () {
+    // === СПИСОК ВІДГУКІВ — додавайте сюди нові рядки ===
+    // file   — ім'я відео в папці images (обов'язково)
+    // poster — картинка-обкладинка в папці images (необов'язково)
+    // name, car — підпис під відео (необов'язково)
+    // wide: true — для горизонтального відео (за замовчуванням відео вертикальне)
+    var REVIEWS_DIR = 'images/';
+    var REVIEWS = [
+        // { file: 'review1.mp4', poster: 'review1.jpg', name: 'Олександр', car: 'BMW 330i xDrive' },
+        // { file: 'review2.mp4', name: 'Марія', car: 'Volkswagen Tiguan' },
+        // { file: 'review3.mp4', name: 'Іван', car: 'Audi A4', wide: true },
+    ];
+    // ===================================================
+
+    var section = document.getElementById('reviews');
+    var track = document.getElementById('reviews-track');
+    if (!section || !track || !REVIEWS.length) return;
+    section.hidden = false;
+
+    var PLAY_ICON = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+
+    function pauseOthers(current) {
+        track.querySelectorAll('video').forEach(function (v) { if (v !== current) v.pause(); });
+    }
+
+    function makeCard(r) {
+        var card = document.createElement('figure');
+        card.className = 'rev-card' + (r.wide ? ' rev-wide' : '');
+
+        var media = document.createElement('div');
+        media.className = 'rev-media';
+
+        var v = document.createElement('video');
+        v.preload = 'metadata';
+        v.playsInline = true;
+        v.setAttribute('playsinline', '');
+        if (r.poster) v.poster = REVIEWS_DIR + r.poster;
+        v.src = REVIEWS_DIR + r.file + '#t=0.1';
+        v.setAttribute('aria-label', 'Відгук' + (r.name ? ': ' + r.name : ''));
+
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'rev-play';
+        btn.setAttribute('aria-label', 'Дивитись відгук');
+        btn.innerHTML = PLAY_ICON;
+
+        btn.addEventListener('click', function () { v.play(); });
+        v.addEventListener('play', function () {
+            card.classList.add('started');
+            v.controls = true;
+            pauseOthers(v);
+        });
+        v.addEventListener('error', function () {
+            console.warn('Відгук не завантажився: ' + REVIEWS_DIR + r.file + ' (перевірте ім\'я файлу в папці images)');
+            card.remove();
+            if (!track.children.length) section.hidden = true;
+            updateNav();
+        });
+
+        media.appendChild(v);
+        media.appendChild(btn);
+        card.appendChild(media);
+
+        if (r.name || r.car) {
+            var cap = document.createElement('figcaption');
+            cap.className = 'rev-cap';
+            if (r.name) { var n = document.createElement('strong'); n.textContent = r.name; cap.appendChild(n); }
+            if (r.car) { var c = document.createElement('span'); c.textContent = r.car; cap.appendChild(c); }
+            card.appendChild(cap);
+        }
+        return card;
+    }
+
+    var prev = section.querySelector('.rev-nav.prev');
+    var next = section.querySelector('.rev-nav.next');
+    function updateNav() {
+        var max = track.scrollWidth - track.clientWidth;
+        prev.disabled = track.scrollLeft <= 2;
+        next.disabled = track.scrollLeft >= max - 2;
+        if (max <= 2) { prev.style.display = 'none'; next.style.display = 'none'; }
+        else { prev.style.display = ''; next.style.display = ''; }
+    }
+    function scrollStep(dir) {
+        var card = track.querySelector('.rev-card');
+        var w = card ? card.getBoundingClientRect().width + 16 : 280;
+        track.scrollBy({ left: dir * w * 2, behavior: 'smooth' });
+    }
+
+    REVIEWS.forEach(function (r) { if (r && r.file) track.appendChild(makeCard(r)); });
+    prev.addEventListener('click', function () { scrollStep(-1); });
+    next.addEventListener('click', function () { scrollStep(1); });
+    track.addEventListener('scroll', updateNav, { passive: true });
+    window.addEventListener('resize', updateNav);
+    updateNav();
+})();
+
+/* ---------- Живі анімації: лічильники, поява блоків, нахил карток, корабель, карта світу ---------- */
 (function () {
     
     var CONFIG = {
@@ -878,17 +1026,90 @@
             '</section>';
     }
 
+    // ---------- Карта світу з точок (координати: довгота широта) ----------
+    var LAND = [
+        // Північна Америка
+        '-168 66,-163 70,-156 71,-141 70,-125 70,-110 68,-95 68,-86 67,-82 63,-93 59,-92 57,-85 55,-82 52,-79 52,-78 56,-77 60,-73 62,-69 59,-65 60,-62 57,-58 54,-56 52,-60 50,-66 49.5,-64 47,-61 45.7,-66 43.8,-70 43.5,-70 41.8,-74 40.6,-76 37,-75.5 35.3,-78.5 33.8,-81 31.5,-80 27,-80.5 25.3,-82.5 27,-83 29.5,-86 30,-89.5 29.5,-93 29.7,-97 27.8,-97.5 24.5,-97.5 21.5,-96 19,-94 18.3,-91.5 18.5,-90.5 21,-87 21.5,-87.5 18.5,-88.5 16,-84 15.8,-83.2 12,-83.7 10.5,-82 9,-79.5 9.3,-77.5 8.5,-78 7.2,-80.5 7.5,-83.5 8.5,-85.7 10.2,-87.5 13,-92 14.3,-94.5 16.2,-97 15.9,-101 17.5,-105.5 20.2,-105.7 22.7,-109.5 26,-112.7 29.8,-114.8 31.8,-114.5 30,-112.5 27.5,-110 23.2,-112 25,-114.2 28,-116.7 31.5,-118.5 34,-120.7 34.7,-122.5 37.5,-124.3 40.5,-124.2 44,-124 46.5,-123 48.3,-125 49,-128 51,-130 54.5,-133 57,-137 58.8,-141 59.8,-146 60.5,-150 59.5,-153 58.5,-157 57,-162 55,-164.5 54.7,-162 58.5,-162 60.5,-165.5 62,-164.5 64.5,-168 65',
+        // Гренландія
+        '-73 78,-60 82,-30 83.5,-20 80,-18 76,-20 70,-25 68,-40 64.5,-43.5 60,-49 61,-53 66,-55 70,-60 76,-68 76.5',
+        // Баффінова земля, Вікторія, Елсмір
+        '-80 64,-72 67,-67 69,-62 66.5,-65 62.5,-72 63,-78 64.7',
+        '-118 70,-105 69.5,-101 71,-110 73,-118 72.5',
+        '-90 76,-80 76.5,-68 80,-62 82,-85 82',
+        // Південна Америка
+        '-77.3 8,-75 11,-71.5 12,-67 10.7,-62 10.5,-60 8.5,-57 6,-53 5.5,-50 1.5,-50 -1,-44 -2.5,-39 -4,-35 -5.5,-35 -9,-38.5 -13,-39 -17.5,-41 -22,-44 -23,-48 -25.5,-48.7 -28,-52 -32,-54 -34.5,-57 -35,-57 -38,-62 -39,-65 -41,-63.5 -42.5,-65.5 -45,-67.5 -46.5,-66 -48,-69 -51,-68.5 -52.5,-70 -54,-72 -53,-74.5 -50.5,-75.5 -47,-73.5 -42,-73.5 -37,-71.5 -32,-71.5 -27,-70.3 -18.5,-75 -15,-77 -12,-79.5 -7.5,-81 -5,-80 -2.5,-80.5 0,-78.8 1.8,-77.5 4,-77.5 6.5',
+        // Куба, Гаїті
+        '-85 22,-82 23.2,-78 22.5,-74.2 20.2,-77.5 19.8,-81 22',
+        '-74.4 18.5,-71 19.9,-68.4 18.6,-71.5 17.8',
+        // Євразія
+        '-9.2 43,-1.8 43.4,-1.2 46,-4.5 48.2,-1.5 48.7,1.5 50.2,4 51.5,8 53.8,8.3 57.3,7 58.1,5.2 59.5,5 62,8 63.7,12.5 66,14.5 68,17 69.5,21 70.5,25.5 71,31 70.3,41 67.3,44 66.5,44 68.3,55 68.5,60 69.5,68 68.5,69 73,73 72,80 73,87 75,100 77.5,105 77.3,113 74,125 73.3,130 71,140 72.5,150 71.5,160 70,170 69.7,180 68.8,180 65,172 61,163 60,163 57,160 53,156.7 51,155.5 57,152 59,143 59.2,137 54,141 52.5,140.5 48,135 43.5,131 42.5,129.7 41,127.5 39.8,129 37,129.4 35.2,126.5 34.5,126.3 37.5,124.7 38.3,125 39.7,121.5 39,122 40.5,118.5 39.2,119 37.2,122.5 37.2,120.5 36,119.5 34.5,121.8 31.7,121.8 29.5,119.5 25.5,116.5 22.8,113.5 22.2,110.5 21.2,108 21.5,106.5 19,108.5 15,109.3 12,107 10.5,105 8.7,104.7 10.5,103 10.8,101 12.8,100 13.4,99.5 10,100.2 7,101.5 6.5,103.4 4.5,103.5 1.4,101 2.8,100.3 5.5,98.5 8.2,98.5 11,97.8 15.5,94.5 16.2,94.2 19,92.3 21,91 22.5,89 21.8,86.5 20,84.5 18.5,82 16.5,80.3 14.5,79.8 11,79.2 9.3,77.5 8,76.2 10,74.8 13,73.2 17,72.8 20.5,72.5 22,70.5 20.8,69 22.3,68.2 23.5,66.5 25.3,62 25.2,57.5 25.7,56.5 27,54.2 26.7,51.5 27.8,49 30,48.5 29.9,50 26.5,51.5 24.5,55 25.4,56.3 26.2,56.5 24.5,59.8 22.4,58.5 20,55.5 17.5,52.2 15.7,49 14.5,45 12.8,43.2 12.8,42.8 15,42.5 16.8,40.5 20,38.5 24,37 26.5,35 28.2,34.9 29.6,34.2 31.3,35.1 33,35.9 35.5,36 36.5,33.5 36.2,30.5 36.5,28 36.8,27 37.5,26.3 39.5,26.2 40.3,24 40.8,24 38,23 36.5,21.5 37,21 38.7,20 40,19.5 41.5,18.5 42.5,16 43.5,13.7 45.3,12.4 44.5,14 42.5,16 41.8,18.5 40.2,17 39,16.5 38,16 39,15 40.2,13.5 41.3,12 42,10.5 43,9 44.3,7.5 43.8,6 43.1,3.2 43.3,3 42,0.5 40.5,-0.3 38.7,-2 36.8,-5.3 36.1,-6.3 36.9,-8.9 37,-9.2 38.7,-8.8 41.5',
+        // Африка
+        '-17 21,-16.2 19,-17.5 14.7,-16.5 12.5,-13.5 9.5,-11 7,-8 4.5,-4 5.2,1.5 6.2,4 6.3,6 4.3,8.5 4.5,9.8 3.5,9.5 1,9 -1,12 -5,13.5 -9,12.5 -13.5,11.8 -17,14.5 -22.5,15 -26.5,17.8 -31,18.5 -34.2,20 -34.8,25.5 -34,28 -32.8,31 -29.5,32.8 -26,35.5 -24,35.5 -21,34.8 -19.8,40.5 -15,40.5 -11,39.2 -7,38.8 -6,39.7 -4.5,41.5 -1.5,44 1.5,48 5,51.2 10.5,51 12,46 11.5,43.5 12.5,41 14.5,39 16,37.2 20,35.5 24,34 27,32.6 29.8,32 31.2,30 31.4,25 31.8,20 32,19 30.3,15 32.3,11 33.3,10 37.3,8 36.9,3 36.8,-1.8 35.2,-5.5 35.9,-8 34,-9.8 31.5,-9.8 29,-12.8 27.8,-15.5 24,-16.6 21.6',
+        '49.3 -12.2,50.5 -15.5,49.5 -18,47.2 -25,44 -25,43.5 -22,44.2 -17,46 -15.7',
+        // Австралія, Нова Зеландія, Нова Гвінея
+        '114 -22,114 -26,115 -34,118 -35,123 -34,129 -31.5,134 -32.8,138 -35.5,140 -38,144 -38.3,147 -39,150 -37.5,151.5 -33,153.5 -28,153 -25,150 -22.5,146 -19,145.5 -15,143.5 -14,142.5 -10.8,141.5 -13,141.5 -17,139 -17.5,136.5 -15.5,136.5 -12,132 -11.5,130 -13,129 -15,126 -14,123 -17,122 -18,118 -20.5',
+        '172.7 -34.5,175.5 -37,178.5 -37.7,177 -39.5,175 -41.3,174.5 -39.5,173.8 -36.5',
+        '172.7 -40.5,174.3 -41.6,171.2 -44.3,170.8 -46,167 -46.2,166.5 -45.3,170 -43',
+        '131 -0.8,135 -3.3,141 -2.6,145 -4.5,147.5 -6,150.5 -10.5,147 -10,143 -9,141 -9.2,138 -8.2,137.5 -5,133 -4',
+        // Британія, Ірландія, Ісландія
+        '-5.5 50,1.5 51,1.7 52.8,-0.5 54.5,-2 56,-2.5 57.5,-4 58.6,-6 58,-5.5 56,-5 54.8,-3 54,-3 53.3,-4.7 52.8,-5.2 51.7,-3.5 51.2',
+        '-10 52,-6 52.2,-6 54.5,-8 55.2,-10 54',
+        '-24 65.5,-22 66.4,-14.5 66.3,-13.5 65,-18.5 63.4,-22.5 63.8',
+        // Японія, Сахалін, Шрі-Ланка, Індонезія, Філіппіни
+        '130.8 31.5,131 33.5,135 34.2,139 34.8,141 38,142 40,141.5 41.4,140 40,139.5 38,137 37,136 35.8,133 35.5,131 34.5',
+        '140 42,141.5 45.4,145.3 43.4,143 42,141 41.7',
+        '142 46,143.5 49,143.2 54,142.5 53.5,142 49',
+        '80 9.8,81.8 7.5,81 6,80 6',
+        '95.3 5.6,98 4,104 -1,106 -3.2,105.8 -5.8,102 -4,98.5 0.5',
+        '109 1.5,111 2.2,117 7,119 5,118 1,116.5 -3.5,114.5 -4,111 -3,109.3 -1',
+        '105.5 -6.5,108 -6.5,114.5 -7.7,114.5 -8.5,106 -7.4',
+        '120 18.5,122.2 18.3,121.5 15,124 13,122 13.5,120.5 14',
+        '122 7,125 9.6,126.5 7,125.5 5.8,123 7.5'
+    ];
+    var WATER = [
+        '28 41.2,28 44,30 46,33 46,35.5 45.2,36.5 45.4,38 47,37.5 44.5,40 43.5,41.5 41.5,38 41,35 42,31 41.2',      // Чорне море
+        '47 43,49 46.5,53 46,53 41,54 40,53.5 37,50.5 37,49 38.5,49.5 40.5,47.5 42',                                   // Каспій
+        '10.3 56,12.2 55.2,14 54.1,19.5 54.4,21.2 55.5,21 57.8,24.2 57.5,24.4 59,30.2 59.9,25 60.2,22 59.8,21.2 61,21.5 63,25 65.2,24 65.8,21.5 65,18.5 63,17.2 60.7,18.8 59.4,16.7 57.5,16 56,14.2 55.5,12.9 55.6,12 56.2' // Балтика
+    ];
+
+    function parsePoly(str) {
+        return str.split(',').map(function (p) { var a = p.trim().split(' '); return [(+a[0] + 180) * 2.5, (78 - +a[1]) * 2.5]; });
+    }
+    function inside(x, y, poly) {
+        var c = false;
+        for (var i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+            var xi = poly[i][0], yi = poly[i][1], xj = poly[j][0], yj = poly[j][1];
+            if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c;
+        }
+        return c;
+    }
+    function worldDots() {
+        var land = LAND.map(parsePoly), water = WATER.map(parsePoly), d = '';
+        for (var row = 0, y = 4; y < 336; y += 6, row++) {
+            for (var x = (row % 2 ? 6.5 : 3); x < 900; x += 7) {
+                var ok = false, i, k;
+                for (i = 0; i < land.length; i++) { if (inside(x, y, land[i])) { ok = true; break; } }
+                if (!ok) continue;
+                for (k = 0; k < water.length; k++) { if (inside(x, y, water[k])) { ok = false; break; } }
+                if (ok) d += 'M' + x + ' ' + y + 'h.01';
+            }
+        }
+        return d;
+    }
+
     function mapHTML() {
+        // США (-96, 38) → x=210 y=100;  Європа (9, 50) → x=472 y=70;  Україна (31.5, 49) → x=529 y=72
         return '<section id="routeMap" aria-hidden="true"><div class="map-eyebrow">// Шлях вашого авто</div><div class="map-panel">' +
-            '<svg viewBox="0 0 900 300"><defs><radialGradient id="mpGlow"><stop offset="0" stop-color="#3b82f6" stop-opacity=".55"/><stop offset="1" stop-color="#3b82f6" stop-opacity="0"/></radialGradient></defs>' +
-            '<path id="rtUsa" class="map-line" d="M110 170 Q430 -25 760 140"/><path id="rtEu" class="map-line" d="M470 118 Q620 48 760 140"/>' +
-            '<circle cx="760" cy="140" r="34" fill="url(#mpGlow)"/>' +
-            '<g><circle cx="110" cy="170" r="7" fill="#fff"/><circle cx="110" cy="170" r="7" fill="none" stroke="#60a5fa" stroke-width="2"><animate attributeName="r" values="7;24" dur="2.6s" repeatCount="indefinite"/><animate attributeName="opacity" values=".8;0" dur="2.6s" repeatCount="indefinite"/></circle></g>' +
-            '<g><circle cx="470" cy="118" r="7" fill="#fff"/><circle cx="470" cy="118" r="7" fill="none" stroke="#60a5fa" stroke-width="2"><animate attributeName="r" values="7;24" dur="2.6s" begin=".9s" repeatCount="indefinite"/><animate attributeName="opacity" values=".8;0" dur="2.6s" begin=".9s" repeatCount="indefinite"/></circle></g>' +
-            '<g><circle cx="760" cy="140" r="9" fill="#fbbf24"/><circle cx="760" cy="140" r="9" fill="none" stroke="#fbbf24" stroke-width="2"><animate attributeName="r" values="9;30" dur="2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".9;0" dur="2.2s" repeatCount="indefinite"/></circle></g>' +
-            '<circle r="11" fill="#60a5fa" opacity=".35"><animateMotion dur="6.5s" repeatCount="indefinite"><mpath href="#rtUsa"/></animateMotion></circle><circle r="5" fill="#fff"><animateMotion dur="6.5s" repeatCount="indefinite"><mpath href="#rtUsa"/></animateMotion></circle>' +
-            '<circle r="11" fill="#60a5fa" opacity=".35"><animateMotion dur="4.2s" begin="1s" repeatCount="indefinite"><mpath href="#rtEu"/></animateMotion></circle><circle r="5" fill="#fff"><animateMotion dur="4.2s" begin="1s" repeatCount="indefinite"><mpath href="#rtEu"/></animateMotion></circle>' +
-            '<text x="110" y="205" font-size="15" text-anchor="middle">🇺🇸 США</text><text x="470" y="152" font-size="15" text-anchor="middle">🇪🇺 ЄВРОПА</text><text x="760" y="176" font-size="15" text-anchor="middle">🇺🇦 УКРАЇНА</text>' +
+            '<svg viewBox="0 0 900 335"><defs><radialGradient id="mpGlow"><stop offset="0" stop-color="#3b82f6" stop-opacity=".6"/><stop offset="1" stop-color="#3b82f6" stop-opacity="0"/></radialGradient></defs>' +
+            '<path class="map-dots" d="' + worldDots() + '"/>' +
+            '<path id="rtUsa" class="map-line" d="M210 100 Q370 -12 529 72"/><path id="rtEu" class="map-line" d="M472 70 Q500 46 529 72"/>' +
+            '<circle cx="529" cy="72" r="38" fill="url(#mpGlow)"/>' +
+            '<g><circle cx="210" cy="100" r="6" fill="#fff"/><circle cx="210" cy="100" r="6" fill="none" stroke="#60a5fa" stroke-width="2"><animate attributeName="r" values="6;22" dur="2.6s" repeatCount="indefinite"/><animate attributeName="opacity" values=".8;0" dur="2.6s" repeatCount="indefinite"/></circle></g>' +
+            '<g><circle cx="472" cy="70" r="6" fill="#fff"/><circle cx="472" cy="70" r="6" fill="none" stroke="#60a5fa" stroke-width="2"><animate attributeName="r" values="6;22" dur="2.6s" begin=".9s" repeatCount="indefinite"/><animate attributeName="opacity" values=".8;0" dur="2.6s" begin=".9s" repeatCount="indefinite"/></circle></g>' +
+            '<g><circle cx="529" cy="72" r="7" fill="#fbbf24"/><circle cx="529" cy="72" r="7" fill="none" stroke="#fbbf24" stroke-width="2"><animate attributeName="r" values="7;26" dur="2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".9;0" dur="2.2s" repeatCount="indefinite"/></circle></g>' +
+            '<circle r="10" fill="#60a5fa" opacity=".35"><animateMotion dur="6.5s" repeatCount="indefinite"><mpath href="#rtUsa"/></animateMotion></circle><circle r="4.5" fill="#fff"><animateMotion dur="6.5s" repeatCount="indefinite"><mpath href="#rtUsa"/></animateMotion></circle>' +
+            '<circle r="10" fill="#60a5fa" opacity=".35"><animateMotion dur="3.4s" begin="1s" repeatCount="indefinite"><mpath href="#rtEu"/></animateMotion></circle><circle r="4.5" fill="#fff"><animateMotion dur="3.4s" begin="1s" repeatCount="indefinite"><mpath href="#rtEu"/></animateMotion></circle>' +
+            '<text x="210" y="128" font-size="14" text-anchor="middle">США</text><text x="456" y="62" font-size="14" text-anchor="end">ЄВРОПА</text><text x="546" y="92" font-size="14" text-anchor="start">УКРАЇНА</text>' +
             '</svg></div></section>';
     }
 
@@ -1005,7 +1226,9 @@
     }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();
-</script>
+    </script>
 
-    
+    <!-- Відправка форми в SalesDrive -->
     <script src="./script.js"></script>
+</body>
+</html>
